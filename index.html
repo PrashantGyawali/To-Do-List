@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script src="./index.js" defer></script>
+    <title>TO-DO-List</title>
+</head>
+
+
+
+<body style="background-color: #4b4b4b;">
+
+      <h1 style="text-align: center;"> To-Do-List</h1>
+
+
+      <form id="write_form" >
+
+        <div style="display: flex; ">
+              <fieldset style="width:50%">
+                 <legend style="color:rgb(138, 255, 249)">Write a to-do:</legend>
+                      <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" value="Task" required>
+              </fieldset>
+
+              <fieldset >
+                  <legend style="color:greenyellow">Date:</legend>
+                      <input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck()">
+              </fieldset>
+
+              <fieldset>
+                  <legend style="color:rgb(255, 14, 66)">Priority:</legend>
+                      <select name="Priority" id="Priority">
+                         <option value="Highest">Highest Priority</option>
+                         <option value="High">High Priority</option>
+                         <option value="Medium">Medium Priority</option>
+                         <option value="Low">Low Priority</option>
+                      </select>
+              </fieldset >
+              
+        <fieldset><button id="submit1" type="submit" style=" top:10px; height:40px" >Add Task</button></fieldset>
+      </div>
+      </form>  
+
+
+
+
+
+
+
+      <h2>Tasks</h2>
+      <div id="tasks">
+        <div style="background-color: rgb(17, 17, 17); color:aqua; height:50px; width:30%; display:flex; justify-content: space-between;">
+          <button style="width:15%; background-color:#2b2b2b; border: #242424 2px solid;"></button>
+            <input type="text" style=" background-color: black; width: 100%; color:white;" readonly>
+            <div style=" display: flex; flex-direction: column; justify-content: space-between;">
+                  <div>hello</div>
+                  <div>sad</div>
+            </div>
+            <div style="display:flex;">
+            <button >Edit</button>
+            <button>Delete</button>
+            </div>
+        </div>
+ 
+      </div>
+
+
+</body>
+</html>
