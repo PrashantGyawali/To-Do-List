@@ -1,9 +1,10 @@
 var cooldown=0;
-function task(content, deadline, priority) {
+function task(content, deadline, priority,name) {
+    this.name=name;
     this.content = content;
     this.deadline = deadline;
     this.priority = priority;
-    this.completed= undefined;
+    this.completed= "not";
   }
 
 
@@ -12,12 +13,9 @@ if(JSON.parse(localStorage.getItem("tasks"))!=null)
 {tasks=JSON.parse(localStorage.getItem("tasks"));};
 
 createhtml(tasks);
+setDefaultdate();
 
-//checks if date is valid i.e cannot create new task thats scheduled for yesterday
-function Datecheck() { document.getElementById("datePickerId").removeAttribute("min");
-    let x=new Date().toISOString();
-    document.getElementById("datePickerId").setAttribute("min", x.slice(0,16));;
-}
+
 
 //Add submit event listener on form and prevent default action
 form1=document.getElementById("write_form")
@@ -33,32 +31,40 @@ function submitevent(event)
             let text=document.getElementById("writeplace").value;
             document.getElementById("writeplace").value="";
             let t=document.getElementById("datePickerId").value;
-            let date=(t.slice(0,10)).concat(" ",t.slice(11,))
+
+            let date=(t.slice(0,10)).concat(" ",t.slice(11,));
             let priority= document.getElementById("Priority").value;
-  
-            const new_task= new task(text,date,priority);
+            
+            check_localStorage();
+
+            let name=localStorage.name;
+
+            const new_task= new task(text,date,priority,name);
             tasks.push(new_task);
 
+            console.log(tasks);
             //Saving in local storage
             let x=JSON.stringify(tasks);
             localStorage.setItem("tasks",x);
 
-console.log(x);
+
 
             let y=document.createElement("div");
-            y.innerHTML=`
-            <div style="background-color: rgb(17, 17, 17); color:aqua; height:50px; width:30%; display:flex; justify-content: space-between;">
-                  <button style="width:15%; background-color:#2b2b2b; border: #242424 2px solid;"></button>
-                    <input type="text" style=" background-color: black; width: 100%; color:white;" value="${new_task.content}}" readonly>
-                    <div style=" display: flex; flex-direction: column; justify-content: space-between;">
-                          <div>${new_task.deadline}</div>
-                          <div>${new_task.priority}</div>
-                    </div>
-                    <div style="display:flex;">
-                    <button >Edit</button>
-                    <button>Delete</button>
-                    </div>
-                </div>`;
+            y.innerHTML=`<div style="display: flex;">
+
+            <button style="width: auto; color:rgba(0,0,0,0)" >hmm</button>
+            <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${new_task.content}" readonly class="${new_task.completed} id="${new_task.name}"> 
+  
+            <div style="width: fit-content;">
+                <input type="button" readonly value="${new_task.deadline}" style="width:100%;" id="${new_task.name}_date">
+                <input type="button" readonly value="${new_task.priority}" style="width:100%;" id="${new_task.name}_priority">
+            </div>
+  
+            <div style="display:flex;  background-color: red;">
+              <button id="${new_task.name}_edit" class="editBtn">Edit</button>
+              <button id="${new_task.name}_delete" class="delBtn">Delete</button>
+            </div>
+          </div>`;
             document.getElementById("tasks").appendChild(y);
         }
             //this is the thing that cause cooldown
@@ -68,27 +74,30 @@ console.log(x);
 
 function createhtml(tasks){
 
-    var child = document.getElementById("tasks").lastElementChild; 
-    while (child) {
+     var child = document.getElementById("tasks").lastElementChild; 
+     while (child) {
         document.getElementById("tasks").removeChild(child);
-        child = document.getElementById("tasks").lastElementChild;  }
+         child = document.getElementById("tasks").lastElementChild;  }
 
       if(tasks!=null){
           tasks.forEach((task)=>{ 
                  let y=document.createElement("div");
                   y.innerHTML=`
-             <div style="background-color: rgb(17, 17, 17); color:aqua; height:50px; width:30%; display:flex; justify-content: space-between;">
-          <button style="width:15%; background-color:#2b2b2b; border: #242424 2px solid;"></button>
-            <input type="text" style=" background-color: black; width: 100%; color:white;" value="${task['content']}}" readonly>
-            <div style=" display: flex; flex-direction: column; justify-content: space-between;">
-                  <div>${task['deadline']}</div>
-                  <div>${task['priority']}</div>
-            </div>
-            <div style="display:flex;">
-            <button >Edit</button>
-            <button>Delete</button>
-            </div>
-        </div>`;
+                  <div style="display: flex;">
+
+                  <button style="width: auto; color:rgba(0,0,0,0)" >hmm</button>
+                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed} id="${task.name}"> 
+        
+                  <div style="max-width:120px;">
+                      <input type="button" readonly value="${task.deadline}" style="width:100%;" id="${task.name}_date">
+                      <input type="button" readonly value="${task.priority}" style="width:100%;" id="${task.name}_priority">
+                  </div>
+        
+                  <div style="display:flex;  background-color: red;">
+                    <button id="${task.name}_edit" class="editBtn">Edit</button>
+                    <button id="${task.name}_delete" class="delBtn">Delete</button>
+                  </div>
+                </div>`;
     document.getElementById("tasks").appendChild(y);
 
 }
@@ -96,3 +105,56 @@ function createhtml(tasks){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//checks if date is valid i.e cannot create new task thats scheduled for yesterday
+function Datecheck() { document.getElementById("datePickerId").removeAttribute("min");
+    let x=new Date().toISOString();
+    document.getElementById("datePickerId").setAttribute("min", x.slice(0,16));;
+}
+
+
+
+
+
+function check_localStorage()
+{ if(localStorage.name)
+  {
+    localStorage.name = Number(localStorage.name) + 1;
+  }
+  else{
+      localStorage.name=1;
+  }
+}
+
+
+
+//Sets a default date as tomorrow
+function setDefaultdate() { document.getElementById("datePickerId").removeAttribute("min");
+    let tomorrow = (new Date(new Date().setDate(new Date().getDate() + 1))).toISOString();
+    tomorrow=tomorrow.slice(0,16);
+ 
+   // just giving default date as tomorrow- ignore this monstrocity
+    let x=tomorrow.slice(0,11).concat( ((new Date()).toTimeString()).slice(0,5))
+    document.getElementById("datePickerId").value=x;
+    console.log(document.getElementById("datePickerId").value);
+}

@@ -1,3 +1,9 @@
-.background_calendar{
-    background-image: "./calendar.png";
+.completed{
+    text-decoration: line-through;
+}
+
+.not{ text-decoration: none;}
+
+.save{
+
 }

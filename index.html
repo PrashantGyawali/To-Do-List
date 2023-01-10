@@ -25,7 +25,7 @@
 
               <fieldset >
                   <legend style="color:greenyellow">Date:</legend>
-                      <input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck()">
+                      <input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck()" >
               </fieldset>
 
               <fieldset>
@@ -48,22 +48,25 @@
 
 
 
-      <h2>Tasks</h2>
-      <div id="tasks">
-        <div style="background-color: rgb(17, 17, 17); color:aqua; height:50px; width:30%; display:flex; justify-content: space-between;">
-          <button style="width:15%; background-color:#2b2b2b; border: #242424 2px solid;"></button>
-            <input type="text" style=" background-color: black; width: 100%; color:white;" readonly>
-            <div style=" display: flex; flex-direction: column; justify-content: space-between;">
-                  <div>hello</div>
-                  <div>sad</div>
-            </div>
-            <div style="display:flex;">
-            <button >Edit</button>
-            <button>Delete</button>
-            </div>
+<h2>Tasks</h2>
+
+    <div id="tasks" style="width:100vw; height:20vh;">
+        <div style="display: flex;">
+
+          <button style="width: auto; color:rgba(0,0,0,1); font-size: 25px;" id="" ><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
+          <input type="text" style=" background-color: black; min-width:40%; overflow: scroll;" readonly> 
+
+          <div style="width: fit-content;">
+              <input type="button" readonly value="2020-2023-22222222" style="width:100%;">
+              <input type="button" readonly value="high priority" style="width:100%;">
+          </div>
+
+          <div style="display:flex;  background-color: red;">
+            <button id="">Edit</button>
+            <button id="">Delete</button>
+          </div>
         </div>
- 
-      </div>
+    </div> 
 
 
 </body>
