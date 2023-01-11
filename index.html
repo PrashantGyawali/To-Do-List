@@ -20,17 +20,18 @@
         <div style="display: flex; ">
               <fieldset style="width:50%">
                  <legend style="color:rgb(138, 255, 249)">Write a to-do:</legend>
-                      <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" value="Task" required>
+                      <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" value="Task" spellcheck="false" required>
               </fieldset>
 
               <fieldset >
-                  <legend style="color:greenyellow">Date:</legend>
-                      <input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck()" >
+                  <legend style="color:greenyellow; justify-items: center;">Date:</legend>
+                      <span style="opacity: 0;">..</span><input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck(datePickerId)" ><span style="opacity: 0;">..</span>
               </fieldset>
 
               <fieldset>
                   <legend style="color:rgb(255, 14, 66)">Priority:</legend>
-                      <select name="Priority" id="Priority">
+                      <select name="Priority" id="Priority" required>
+                        <option value="none" selected disabled hidden>Set Priority</option>
                          <option value="Highest">Highest Priority</option>
                          <option value="High">High Priority</option>
                          <option value="Medium">Medium Priority</option>
@@ -43,15 +44,9 @@
       </form>  
 
 
-
-
-
-
-
 <h2>Tasks</h2>
 
-    <div id="tasks" style="width:100vw; height:20vh;">
-
+    <div id="tasks" style="width:100vw; height:20vh;">    
     </div> 
 
 

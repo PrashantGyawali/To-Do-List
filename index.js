@@ -1,16 +1,17 @@
 var cooldown=0;
-function task(content, deadline, priority,name) {
-    this.name=name;
+function task(content, deadline, priority, name) {
+    this.name = name;
     this.content = content;
     this.deadline = deadline;
     this.priority = priority;
-    this.completed= "not";
-  }
+    this.completed = "not";
+}
 
 
-let tasks=new Array();
-if(JSON.parse(localStorage.getItem("tasks"))!=null)
-{tasks=JSON.parse(localStorage.getItem("tasks"));};
+let tasks = new Array();
+if (JSON.parse(localStorage.getItem("tasks")) != null) {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+};
 
 createhtml(tasks);
 setDefaultdate();
@@ -33,7 +34,7 @@ function submitevent(event)
             let t=document.getElementById("datePickerId").value;
 
             let date=(t.slice(0,10)).concat(" ",t.slice(11,));
-            let priority= document.getElementById("Priority").value;
+            let priority= document.getElementById("Priority").value=='none'?'Medium':document.getElementById("Priority").value;
             
             check_localStorage();
 
@@ -54,87 +55,191 @@ function submitevent(event)
      }
      }
 
-function createhtml(tasks){
-
-     var child = document.getElementById("tasks").lastElementChild; 
-     while (child) {
+function createhtml(tasks) {
+  //removes already existing child nodes to update 
+    var child = document
+        .getElementById("tasks")
+        .lastElementChild;
+    while (child) {
         document.getElementById("tasks").removeChild(child);
-         child = document.getElementById("tasks").lastElementChild;  }
+        child = document.getElementById("tasks").lastElementChild;
+    }
 
-      if(tasks!=null){
-          tasks.forEach((task)=>{ 
-                 let y=document.createElement("div");
-                  y.innerHTML=`
-                  <div style="display: flex;">
+    if (tasks != null) {
+        tasks.forEach((task) => {
+            let y = document.createElement("div");
+            y.innerHTML = `
+                  <div style="display: flex; margin:3px; height:42px;">
 
                   <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
-                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}"> 
+                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
         
                   <div style="max-width:120px;">
-                      <input type="button" readonly value="${task.deadline}" style="width:100%;" id="${task.name}_date">
-                      <input type="button" readonly value="${task.priority}" style="width:100%;" id="${task.name}_priority">
+                      <div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div>
+                     <div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div>
                   </div>
         
-                  <div style="display:flex;  background-color: red;">
-                    <button id="${task.name}_edit" class="editBtn">Edit</button>
-                    <button id="${task.name}_delete" class="delBtn">Delete</button>
+                  <div style="display:flex;  background-color: red; width:100px;">
+                    <button id="${task.name}_edit" style="min-width:46%; padding:2px 5px 2px 5px;  text-align:center; box-sizing:border-box;"class="editBtn" onclick="editfn(${task.name})">Edit</button>
+                    <button id="${task.name}_delete" style="max-width:54%;" class="delBtn">Delete</button>
                   </div>
                 </div>`;
-                
-  let x=JSON.stringify(tasks);
-  localStorage.setItem("tasks",x);
 
-    document.getElementById("tasks").appendChild(y);
-    delBtnSetUp();
+            let x = JSON.stringify(tasks);
+            localStorage.setItem("tasks", x);
+
+            document
+                .getElementById("tasks")
+                .appendChild(y);
+            delBtnSetUp();
+        })
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+function delBtnSetUp() {
+    let delBtns = document.getElementsByClassName("delBtn");
+
+    Array
+        .from(delBtns)
+        .forEach((delBtn) => {
+            delBtn.addEventListener("click", delfn);
+        });
+
+    function delfn(event) {
+        let btnid = event.target.id;
+        btnid = btnid.slice(0, -7);
+        let temp = [];
+        tasks.forEach((m) => {
+            if (m.name != btnid) 
+                temp.push(m);
+            }
+        );
+        tasks = [...temp];
+        createhtml(tasks);
+
+    }
 }
-)}};
 
+function crossfn(btn) {
+    for (x of tasks) {
+        if (x.name == btn) {
+            if (x.completed == 'completed') {
+                {
+                    x.completed = 'not';
+                }
+            } else {
+                x.completed = 'completed';
+            }
+        };
 
+        let textPlace = document.getElementById(btn);
 
-
-
-
-
-
-
-
-
-
-
-function delBtnSetUp()
-{
-  let delBtns=document.getElementsByClassName("delBtn");
-
-  Array.from(delBtns).forEach((delBtn)=>{delBtn.addEventListener("click",delfn);});
-
-  function delfn(event)
-  {
-    let btnid=event.target.id;
-    btnid=btnid.slice(0,-7);
-    let temp=[];
-    tasks.forEach((m)=>{if(m.name!=btnid)
-    temp.push(m);});
-    tasks=[...temp];
+        for (x of tasks) {
+            if (x.name == btn) {
+                x.content = textPlace.value;
+                if (document.getElementById(btn + '_priorityList') != null) {
+                    let importance = document.getElementById(btn + '_priorityList');
+                    x.priority = importance.value;
+                }
+            };
+        }
+    }
     createhtml(tasks);
-
-  }
 }
 
- function crossfn(btn)
+
+
+
+
+
+  function editfn(btn)
   {
-    for(x of tasks)
+    let textPlace=document.getElementById(btn);
+    let button=document.getElementById(btn+"_edit");
+
+    if(textPlace.hasAttribute('readonly'))
+    {
+      textPlace.removeAttribute('readonly');
+      textPlace.focus();
+      button.innerText="Save";
+      allowdropdown(btn);
+      datemodify(btn);
+    }
+    else{
+      textPlace.setAttribute('readonly','readonly');
+
+      for(x of tasks)
     { if(x.name==btn)
          {
-          if(x.completed=='completed')
-          { {x.completed='not'; }}
-
-          else{x.completed='completed';}
+          x.content=textPlace.value;
+          x.priority=document.getElementById(btn+'_priorityList').value ;
+          
+          let temp=document.getElementById(btn+'_datePickerId').value ;
+          x.deadline=temp.slice(0,10).concat(" ",temp.slice(11,));
         };
+        
   }
   createhtml(tasks);
+    }
   }
 
 
+  function allowdropdown(btn){
+    let button=document.getElementById(btn+"_priority");
+    button.remove();
+    let priorityDiv=document.getElementById(btn+"_priorityDiv");
+    priorityDiv.innerHTML=
+                      `
+                      <select name="Priority" id="${btn}_priorityList" style="width:100%; height:21px">
+                         <option value="Highest">Highest Priority</option>
+                         <option value="High">High Priority</option>
+                         <option value="Medium">Medium Priority</option>
+                         <option value="Low">Low Priority</option>
+                      </select>`;
+  let options=Array.from(document.getElementById(btn+'_priorityList').options);
+  
+for (x of tasks) {
+    if (x.name == btn) {
+        document
+            .getElementById(btn + '_priorityList')
+            .value = x.priority;
+    }
+}
+         
+}
+
+
+
+function datemodify(btn){
+  let button=document.getElementById(btn+"_date");
+  button.style.width='94px';
+  button.style.height='21px';
+  button.style.fontSize='10px';
+  let dateDiv=document.getElementById(btn+"_dateDiv");
+    dateDiv.innerHTML+=
+                      `
+                      <input type="datetime-local" name="datePickerId"  id="${btn}_datePickerId" style="width:18px; padding:0px; margin:0px;"  >
+                      `;
+                    
+  for (x of tasks) {
+  if (x.name == btn) {
+  document.getElementById(btn + '_datePickerId').value = x.deadline;}
+
+  }
+}
+ 
 
 
 
@@ -144,9 +249,9 @@ function delBtnSetUp()
 
 
 //checks if date is valid i.e cannot create new task thats scheduled for yesterday
-function Datecheck() { document.getElementById("datePickerId").removeAttribute("min");
+function Datecheck(datePickerId) { document.getElementById(datePickerId).removeAttribute("min");
     let x=new Date().toISOString();
-    document.getElementById("datePickerId").setAttribute("min", x.slice(0,16));;
+    document.getElementById(datePickerId).setAttribute("min", x.slice(0,16));;
 }
 
 
@@ -173,7 +278,6 @@ function setDefaultdate() { document.getElementById("datePickerId").removeAttrib
    // just giving default date as tomorrow- ignore this monstrocity
     let x=tomorrow.slice(0,11).concat( ((new Date()).toTimeString()).slice(0,5))
     document.getElementById("datePickerId").value=x;
-    console.log(document.getElementById("datePickerId").value);
 }
 
 
