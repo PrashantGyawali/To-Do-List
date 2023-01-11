@@ -1,9 +1,19 @@
-.completed{
+
+input[type='text'].completed{
     text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-style: wavy;
 }
+.not:hover{
+    color:rgba(0,0,0,0.3);
+}
+
+button.not{
+    color:rgba(0,0,0,0);
+} 
 
 .not{ text-decoration: none;}
 
-.save{
+/* .save{
 
-}
+} */

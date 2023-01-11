@@ -14,7 +14,7 @@ if(JSON.parse(localStorage.getItem("tasks"))!=null)
 
 createhtml(tasks);
 setDefaultdate();
-delBtnSetUp();
+
 
 
 //Add submit event listener on form and prevent default action
@@ -42,38 +42,16 @@ function submitevent(event)
             const new_task= new task(text,date,priority,name);
             tasks.push(new_task);
 
-            console.log(tasks);
+
             //Saving in local storage
             let x=JSON.stringify(tasks);
             localStorage.setItem("tasks",x);
-
-
-
-            let y=document.createElement("div");
-            y.innerHTML=`
-            <div style="display: flex;">
-
-            <button style="width: auto; color:rgba(0,0,0,0)" >hmm</button>
-            <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${new_task.content}" readonly class="${new_task.completed} id="${new_task.name}"> 
-  
-            <div style="max-width:120px;">
-                <input type="button" readonly value="${new_task.deadline}" style="width:100%;" id="${new_task.name}_date">
-                <input type="button" readonly value="${new_task.priority}" style="width:100%;" id="${new_task.name}_priority">
-            </div>
-  
-            <div style="display:flex;  background-color: red;">
-              <button id="${new_task.name}_edit" class="editBtn">Edit</button>
-              <button id="${new_task.name}_delete" class="delBtn">Delete</button>
-            </div>
-          </div>`;
-            document.getElementById("tasks").appendChild(y);
-        }
-            delBtnSetUp();
+           createhtml(tasks);
             //this is the thing that cause cooldown
             cooldown=1;
             setTimeout(()=>{cooldown=0;},500)
 
-
+     }
      }
 
 function createhtml(tasks){
@@ -89,8 +67,8 @@ function createhtml(tasks){
                   y.innerHTML=`
                   <div style="display: flex;">
 
-                  <button style="width: auto; color:rgba(0,0,0,0)" >hmm</button>
-                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed} id="${task.name}"> 
+                  <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
+                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}"> 
         
                   <div style="max-width:120px;">
                       <input type="button" readonly value="${task.deadline}" style="width:100%;" id="${task.name}_date">
@@ -102,10 +80,11 @@ function createhtml(tasks){
                     <button id="${task.name}_delete" class="delBtn">Delete</button>
                   </div>
                 </div>`;
+                
+  let x=JSON.stringify(tasks);
+  localStorage.setItem("tasks",x);
+
     document.getElementById("tasks").appendChild(y);
-    console.log(tasks);
-    let x=JSON.stringify(tasks);
-    localStorage.setItem("tasks",x);
     delBtnSetUp();
 }
 )}};
@@ -125,25 +104,35 @@ function createhtml(tasks){
 function delBtnSetUp()
 {
   let delBtns=document.getElementsByClassName("delBtn");
-  console.log(delBtns);
+
   Array.from(delBtns).forEach((delBtn)=>{delBtn.addEventListener("click",delfn);});
 
   function delfn(event)
   {
     let btnid=event.target.id;
     btnid=btnid.slice(0,-7);
-    console.log(btnid);
-    console.log(tasks);
     let temp=[];
-tasks.forEach((m)=>{if(m.name!=btnid)
+    tasks.forEach((m)=>{if(m.name!=btnid)
     temp.push(m);});
     tasks=[...temp];
-    console.log('temp',temp);
-    console.log('tasks',tasks);
     createhtml(tasks);
 
   }
 }
+
+ function crossfn(btn)
+  {
+    for(x of tasks)
+    { if(x.name==btn)
+         {
+          if(x.completed=='completed')
+          { {x.completed='not'; }}
+
+          else{x.completed='completed';}
+        };
+  }
+  createhtml(tasks);
+  }
 
 
 
@@ -186,4 +175,5 @@ function setDefaultdate() { document.getElementById("datePickerId").removeAttrib
     document.getElementById("datePickerId").value=x;
     console.log(document.getElementById("datePickerId").value);
 }
+
 
