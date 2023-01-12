@@ -25,7 +25,7 @@
 
               <fieldset >
                   <legend style="color:greenyellow; justify-items: center;">Date:</legend>
-                      <span style="opacity: 0;">..</span><input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck(datePickerId)" ><span style="opacity: 0;">..</span>
+                      <span style="opacity: 0;">..</span><input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck('datePickerId')" ><span style="opacity: 0;">..</span>
               </fieldset>
 
               <fieldset>
@@ -44,7 +44,13 @@
       </form>  
 
 
-<h2>Tasks</h2>
+<h2>Tasks</h2> 
+
+<div id="sortplace"><button id="Sortbtn" onclick="sortbtn()">Sort</button></div>
+
+</div>
+
+
 
     <div id="tasks" style="width:100vw; height:20vh;">    
     </div> 

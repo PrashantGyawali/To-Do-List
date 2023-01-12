@@ -5,6 +5,7 @@ function task(content, deadline, priority, name) {
     this.deadline = deadline;
     this.priority = priority;
     this.completed = "not";
+    this.dateAdded= (new Date()).toISOString();
 }
 
 
@@ -67,6 +68,7 @@ function createhtml(tasks) {
 
     if (tasks != null) {
         tasks.forEach((task) => {
+  
             let y = document.createElement("div");
             y.innerHTML = `
                   <div style="display: flex; margin:3px; height:42px;">
@@ -75,8 +77,8 @@ function createhtml(tasks) {
                   <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
         
                   <div style="max-width:120px;">
-                      <div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div>
-                     <div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div>
+                  <div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div>
+                <div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div>
                   </div>
         
                   <div style="display:flex;  background-color: red; width:100px;">
@@ -281,3 +283,267 @@ function setDefaultdate() { document.getElementById("datePickerId").removeAttrib
 }
 
 
+
+
+function sortDate_Priority(orderedTasks,datecondn,x,priorityorder)
+{   
+    for(let i=0;i<orderedTasks.length-1; i++)
+    {
+       
+       for(let j=i+1;j<orderedTasks.length; j++) 
+       {
+        if(x=='d')
+        {
+        if(orderedTasks[i][`${datecondn}`]<orderedTasks[j][`${datecondn}`])
+        {
+            t=orderedTasks[i];
+            orderedTasks[i]=orderedTasks[j];
+            orderedTasks[j]=t;
+        }
+        if(orderedTasks[i][`${datecondn}`]==orderedTasks[j][`${datecondn}`])
+        {
+            if(priorityorder=='d')
+            {
+                let priority1=orderedTasks[i].priority;
+                let priority2=orderedTasks[j].priority;
+                priority1 = priority1 == 'Highest'? 4: priority1 == 'High'? 3: priority1 == 'Medium'? 2: 1;
+                priority2 = priority2 == 'Highest'? 4: priority2 == 'High'? 3: priority2 == 'Medium'? 2: 1;
+                if(priority1<priority2)
+                {
+                    t=orderedTasks[i];
+                    orderedTasks[i]=orderedTasks[j];
+                    orderedTasks[j]=t;
+                }
+               }
+
+               if(priorityorder=='a')
+            {
+                let priority1=orderedTasks[i].priority;
+                let priority2=orderedTasks[j].priority;
+                priority1 = priority1 == 'Highest'? 4: priority1 == 'High'? 3: priority1 == 'Medium'? 2: 1;
+                priority2 = priority2 == 'Highest'? 4: priority2 == 'High'? 3: priority2 == 'Medium'? 2: 1;
+                if(priority1>priority2)
+                {
+                    t=orderedTasks[i];
+                    orderedTasks[i]=orderedTasks[j];
+                    orderedTasks[j]=t;
+                }
+               }
+            }
+        }
+       
+    
+       if(x=='a')
+      { if(orderedTasks[i][`${datecondn}`]>orderedTasks[j][`${datecondn}`])
+        {
+            t=orderedTasks[i];
+            orderedTasks[i]=orderedTasks[j];
+            orderedTasks[j]=t;
+        }
+        if(orderedTasks[i][`${datecondn}`]==orderedTasks[j][`${datecondn}`])
+        {
+            let priority1=orderedTasks[i].priority;
+                let priority2=orderedTasks[j].priority;
+                priority1 = priority1 == 'Highest'? 4: priority1 == 'High'? 3: priority1 == 'Medium'? 2: 1;
+                priority2 = priority2 == 'Highest'? 4: priority2 == 'High'? 3: priority2 == 'Medium'? 2: 1;
+            if(priorityorder=='a')
+            {  
+                if(priority1>priority2)
+                {
+                    t=orderedTasks[i];
+                    orderedTasks[i]=orderedTasks[j];
+                    orderedTasks[j]=t;
+                }
+               }
+
+               if(priorityorder=='d')
+            {
+                if(priority1<priority2)
+                {
+                    t=orderedTasks[i];
+                    orderedTasks[i]=orderedTasks[j];
+                    orderedTasks[j]=t;
+                }
+               }
+            }
+        }
+       }
+    }
+    };
+
+
+
+function sortPriority_Date(orderedTasks,datecondn,x,priorityorder)
+    { 
+        for(let i=0;i<orderedTasks.length-1; i++)
+    {
+       
+       for(let j=i+1;j<orderedTasks.length; j++) 
+       {
+            if(priorityorder=='a')
+            {
+                let priority1=orderedTasks[i].priority;
+                let priority2=orderedTasks[j].priority;
+                priority1 = priority1 == 'Highest'? 4: priority1 == 'High'? 3: priority1 == 'Medium'? 2: 1;
+                priority2 = priority2 == 'Highest'? 4: priority1 == 'High'? 3: priority1 == 'Medium'? 2: 1;
+                if(priority1>priority2)
+                {
+                    t=orderedTasks[i];
+                    orderedTasks[i]=orderedTasks[j];
+                    orderedTasks[j]=t;
+                }
+                if(orderedTasks[i].priority==orderedTasks[j].priority)
+                {
+                    if(x=='d')
+                         {
+                             if(orderedTasks[i][`${datecondn}`]<orderedTasks[j][`${datecondn}`])
+                                 {
+                                     t=orderedTasks[i];
+                                    orderedTasks[i]=orderedTasks[j];
+                                     orderedTasks[j]=t;
+                                 }
+                         }
+                         if(x=='a')
+                         {
+                             if(orderedTasks[i][`${datecondn}`]>orderedTasks[j][`${datecondn}`])
+                                 {
+                                     t=orderedTasks[i];
+                                    orderedTasks[i]=orderedTasks[j];
+                                     orderedTasks[j]=t;
+                                 }
+                         }
+               }
+            }
+
+               if(priorityorder=='d')
+            {
+                let priority1=orderedTasks[i].priority;
+                let priority2=orderedTasks[j].priority;
+                priority1 = priority1 == 'Highest'? 4: priority1 == 'High'? 3: priority1 == 'Medium'? 2: 1;
+                priority2 = priority2 == 'Highest'? 4: priority2 == 'High'? 3: priority2 == 'Medium'? 2: 1;
+                if(priority1<priority2)
+                {
+                    t=orderedTasks[i];
+                    orderedTasks[i]=orderedTasks[j];
+                    orderedTasks[j]=t;
+                }
+                if(orderedTasks[i].priority==orderedTasks[j].priority)
+                {
+                    if(x=='d')
+                         {
+                             if(orderedTasks[i][`${datecondn}`]<orderedTasks[j][`${datecondn}`])
+                                 {
+                                     t=orderedTasks[i];
+                                    orderedTasks[i]=orderedTasks[j];
+                                     orderedTasks[j]=t;
+                                 }
+                         }
+                    if(x=='a')
+                         {
+                             if(orderedTasks[i][`${datecondn}`]>orderedTasks[j][`${datecondn}`])
+                                 {
+                                     t=orderedTasks[i];
+                                    orderedTasks[i]=orderedTasks[j];
+                                     orderedTasks[j]=t;
+                                 }
+                         }
+               }
+            }
+        
+       
+    }            
+    
+    }
+    };
+
+
+
+
+
+    function arrowdir()
+    { let btn=document.getElementById('sortorder');
+        if(btn.value=='a')
+        {
+            btn.value='d';
+            btn.innerText= 'Decreasing';
+        }
+        else{btn.value='a';
+        btn.innerText= 'Increasing';}
+    }
+
+function sortlist(x)
+{
+    let orderedTasks=[...tasks];
+    let datecondn=document.getElementById('sortdate').value;
+    let sortorder=document.getElementById('sortorder').value;
+    let priorityorder=document.getElementById('sortPriority').value;
+
+
+
+    if(x=='datefocus')
+    {sortDate_Priority(orderedTasks,datecondn,sortorder,priorityorder);}
+    
+    if(x=='priorityfocus')
+    {sortPriority_Date(orderedTasks,datecondn,sortorder,priorityorder);}
+    document.getElementById('sortplace').innerHTML=`<button id="Sortbtn" onclick="sortbtn()">Sort</button>`;
+    createhtml(orderedTasks);
+}
+
+function sortbtn()
+{
+    let button=document.getElementById('Sortbtn');
+    button.remove();
+    let priorityDiv=document.getElementById('sortplace');
+    priorityDiv.innerHTML=
+                      `
+                      <select name="sortfocus" id="sortfocus" style="height:21px" onclick='getvalue()'>
+                         <option value="none" selected disabled hidden>Select Sorting Focus</option> 
+                         <option value="priorityfocus">Priority Focused</option>
+                         <option value="datefocus">Date Focused</option>
+                      </select>`;
+    
+}
+
+
+
+function getvalue(){
+    if(document.getElementById('sortfocus').value!='none')
+    {
+        let x=document.getElementById('sortfocus').value;
+        let priorityDiv=document.getElementById('sortplace');
+        if(x=='priorityfocus')
+         {priorityDiv.innerHTML= `
+         
+         <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;">
+         <select name="sortPriority" id="sortPriority" style="text-align:center;" >
+          <option value="d" selected>Priority: High to Low</option>
+          <option value="a">Priority: Low to High</option>
+       </select>
+       
+       <div id="datesortdiv" style="display: flex; width: 180px;">
+       <select name="sortdate" id="sortdate" style="text-align:center;">
+         <option value="dateAdded" selected >Date added</option>
+         <option value="deadline">Deadline</option>
+      </select>
+      <button id="sortorder" style=" font-size:14px; padding:0px 5px 0px 5px; width: 87px;" value="d" onclick="arrowdir()">Decreasing</button></div>
+      <button onclick="sortlist('priorityfocus')" style=" width: 180px;">Sort</button>`;
+    }
+
+    if(x=='datefocus')
+    {priorityDiv.innerHTML= `
+    
+    <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;">
+    <div id="datesortdiv" style="display: flex; width: 180px;">
+    <select name="sortdate" id="sortdate" style="text-align:center;">
+      <option value="dateAdded"  >Date added</option>
+      <option value="deadline" selected>Deadline</option>
+   </select>
+   <button id="sortorder" style=" font-size:14px; padding:0px 5px 0px 5px; width: 87px;" value="d" onclick="arrowdir()">Decreasing</button></div>
+    <select name="sortPriority" id="sortPriority" style="text-align:center;" >
+     <option value="d" selected>Priority: High to Low</option>
+     <option value="a">Priority: Low to High</option>
+  </select>
+ <button onclick="sortlist('datefocus')" style=" width: 180px;">Sort</button>`;
+}
+}
+}
