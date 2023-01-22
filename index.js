@@ -71,7 +71,7 @@ function createhtml(tasks) {
   
             let y = document.createElement("div");
             y.innerHTML = `
-                  <div style="display: flex; margin:3px; height:42px;">
+                  <div style="display: flex; margin:3px; height:42px;" id="${task.name}_maindiv">
 
                   <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
                   <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
@@ -121,16 +121,25 @@ function delBtnSetUp() {
 
     function delfn(event) {
         let btnid = event.target.id;
-        btnid = btnid.slice(0, -7);
-        let temp = [];
-        tasks.forEach((m) => {
-            if (m.name != btnid) 
-                temp.push(m);
-            }
-        );
-        tasks = [...temp];
-        createhtml(tasks);
 
+        btnid = btnid.slice(0, -7);
+  
+        let fadeDiv = document.getElementById(btnid+"_maindiv");
+
+        if (fadeDiv) {
+            fadeDiv.style.transition = 'opacity 1s';
+            fadeDiv.style.opacity = 0;
+        }
+        setTimeout(
+            function(){ let temp = [];
+            tasks.forEach((m) => {
+                if (m.name != btnid) 
+                    temp.push(m);
+                }
+            );
+            tasks = [...temp];
+    
+            createhtml(tasks);},1000);
     }
 }
 

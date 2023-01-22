@@ -14,3 +14,37 @@ button.not{
 
 .not{ text-decoration: none;}
 
+.rainbow{
+    animation: rainbow 25s infinite;
+}
+
+@keyframes rainbow {
+    0% {
+        color: red;
+    }
+    12.55% {
+        color: orange;
+    }
+    25% {
+        color: yellow;
+    }
+    37.5% {
+        color: rgb(2, 216, 109);
+    }
+    50% {
+        color: blue;
+    }
+    62.5% {
+        color:rgb(2, 216, 109);
+    }
+    75% {
+        color: yellow;
+    }
+    87.5% {
+        color: orange;
+    }
+    100%{
+        color:red;
+    }
+
+}
