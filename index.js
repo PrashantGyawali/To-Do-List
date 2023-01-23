@@ -73,12 +73,12 @@ function createhtml(tasks) {
             y.innerHTML = `
                   <div style="display: flex; margin:3px; height:42px;" id="${task.name}_maindiv">
 
-                  <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
+                <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
                   <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
         
                   <div style="max-width:120px;">
-                  <div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div>
-                <div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div>
+                  <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
+                 <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div></span>
                   </div>
         
                   <div style="display:flex;  background-color: red; width:100px;">
@@ -505,11 +505,13 @@ function sortbtn()
     let priorityDiv=document.getElementById('sortplace');
     priorityDiv.innerHTML=
                       `
-                      <select name="sortfocus" id="sortfocus" style="height:21px" onclick='getvalue()'>
+                      <span title="Select on what basis you want to sort your to-do-list"> <select name="sortfocus" id="sortfocus" style="height:21px" onclick='getvalue()'>
                          <option value="none" selected disabled hidden>Select Sorting Focus</option> 
                          <option value="priorityfocus">Priority Focused</option>
                          <option value="datefocus">Date Focused</option>
-                      </select>`;
+                      </select>
+                      </span>
+                      `;
     
 }
 
@@ -522,20 +524,20 @@ function getvalue(){
         let priorityDiv=document.getElementById('sortplace');
         if(x=='priorityfocus')
          {priorityDiv.innerHTML= `
-         
-         <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;">
-         <select name="sortPriority" id="sortPriority" style="text-align:center;" >
+         <span title="First Sorted on basis of Priority">
+         <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;"></span>
+        <select name="sortPriority" id="sortPriority" style="text-align:center;" >
           <option value="d" selected>Priority: High to Low</option>
           <option value="a">Priority: Low to High</option>
        </select>
        
        <div id="datesortdiv" style="display: flex; width: 180px;">
-       <select name="sortdate" id="sortdate" style="text-align:center;">
+       <span title="If Priority same then sorted according to date"><select name="sortdate" id="sortdate" style="text-align:center;">
          <option value="dateAdded" selected >Date added</option>
          <option value="deadline">Deadline</option>
-      </select>
-      <button id="sortorder" style=" font-size:14px; padding:0px 5px 0px 5px; width: 87px;" value="d" onclick="arrowdir()">Decreasing</button></div>
-      <button onclick="sortlist('priorityfocus')" style=" width: 180px;">Sort</button>`;
+      </select></span>
+      <span title="For same priority Date is arranged in ascending or descending?"><button id="sortorder" style=" font-size:14px; padding:0px 5px 0px 5px; width: 87px;" value="d" onclick="arrowdir()">Decreasing</button></div></span>
+     <span title="Finally sort"> <button onclick="sortlist('priorityfocus')" style=" width: 180px;">Sort</button> </span>`;
     }
 
     if(x=='datefocus')
@@ -543,15 +545,15 @@ function getvalue(){
     
     <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;">
     <div id="datesortdiv" style="display: flex; width: 180px;">
-    <select name="sortdate" id="sortdate" style="text-align:center;">
+   <span title="What date you want to sort according to?"> <select name="sortdate" id="sortdate" style="text-align:center;">
       <option value="dateAdded"  >Date added</option>
       <option value="deadline" selected>Deadline</option>
-   </select>
+   </select></span>
    <button id="sortorder" style=" font-size:14px; padding:0px 5px 0px 5px; width: 87px;" value="d" onclick="arrowdir()">Decreasing</button></div>
-    <select name="sortPriority" id="sortPriority" style="text-align:center;" >
+   <span title="If date same then sorted according to priority"> <select name="sortPriority" id="sortPriority" style="text-align:center; width:180px; " >
      <option value="d" selected>Priority: High to Low</option>
      <option value="a">Priority: Low to High</option>
-  </select>
+  </select></span>
  <button onclick="sortlist('datefocus')" style=" width: 180px;">Sort</button>`;
 }
 }
