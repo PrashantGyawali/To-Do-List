@@ -58,6 +58,11 @@ function submitevent(event)
 
 function createhtml(tasks) {
   //removes already existing child nodes to update 
+
+  let x = JSON.stringify(tasks);
+            localStorage.setItem("tasks", x);
+
+
     var child = document
         .getElementById("tasks")
         .lastElementChild;
@@ -65,6 +70,8 @@ function createhtml(tasks) {
         document.getElementById("tasks").removeChild(child);
         child = document.getElementById("tasks").lastElementChild;
     }
+
+    document.getElementById('Sortbtn').style.visibility= 'hidden';
 
     if (tasks != null) {
         tasks.forEach((task) => {
@@ -87,16 +94,17 @@ function createhtml(tasks) {
                   </div>
                 </div>`;
 
-            let x = JSON.stringify(tasks);
-            localStorage.setItem("tasks", x);
-
             document
                 .getElementById("tasks")
                 .appendChild(y);
             delBtnSetUp();
-        })
-    }
-};
+
+
+            if(tasks.length==0){ }
+            document.getElementById('Sortbtn').style.visibility= 'visible';}
+        )}
+    };
+
 
 
 
@@ -132,13 +140,7 @@ function delBtnSetUp() {
         }
         setTimeout(
             function(){ let temp = [];
-            tasks.forEach((m) => {
-                if (m.name != btnid) 
-                    temp.push(m);
-                }
-            );
-            tasks = [...temp];
-    
+            tasks=tasks.filter((m)=>{return m.name!=btnid});   
             createhtml(tasks);},1000);
     }
 }
