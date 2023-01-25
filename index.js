@@ -494,7 +494,7 @@ function sortlist(x)
     
     if(x=='priorityfocus')
     {sortPriority_Date(orderedTasks,datecondn,sortorder,priorityorder);}
-    document.getElementById('sortplace').innerHTML=`<button id="Sortbtn" onclick="sortbtn()">Sort</button>`;
+    document.getElementById('sortplace').innerHTML=`<span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span>`;
     createhtml(orderedTasks);
 }
 
