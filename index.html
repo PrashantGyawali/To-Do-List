@@ -15,18 +15,18 @@
 
   <div>
     <form id="write_form">
-      <div style="display: grid;">
-        <fieldset style="width:50%">
+      <div id="todo-creation-container">
+        <fieldset class="todo-creation-options">
           <legend style="color:rgb(138, 255, 249)">Write a to-do:</legend>
               <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" spellcheck="false" required>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="todo-creation-options">
           <legend style="color:greenyellow; justify-items: center;">Date:</legend>
-              <span title="Select Deadline"> <span style="opacity: 0;">..</span><input type="datetime-local" name="datePickerId"  id="datePickerId" style="width:1.3vw;" onclick="Datecheck('datePickerId')" ><span style="opacity: 0;">..</span></span>
+              <span title="Select Deadline"> <span style="opacity: 0;">..</span><input type="datetime-local" name="datePickerId"  id="datePickerId" style="width: 27vw;" onclick="Datecheck('datePickerId')" ><span style="opacity: 0;">..</span></span>
         </fieldset>
 
-        <fieldset>
+        <fieldset class="todo-creation-options">
           <legend style="color:rgb(255, 14, 66)">Priority:</legend>
           <select name="Priority" id="Priority" required>
             <option value="none" selected disabled hidden>Set Priority</option>
@@ -37,15 +37,16 @@
           </select>
         </fieldset>
               
-        <fieldset>
-          <button id="submit1" type="submit" style=" top:10px; height:40px">Add Task</button>
+        <fieldset class="todo-creation-options">
+          <button id="submit1" type="submit" style=" top:10px; height:40px;">Add Task</button>
         </fieldset>
       </div>
     </form>  
   </div>
 
+
+  <h2 class="rainbow">Tasks</h2>
   <div style="display:flex; min-width:50vw; max-width: 60vw; justify-content: space-between; min-height:100px;">
-    <h2 style="margin-top: 5vh;">Tasks</h2> 
     <div id="sortplace" style="margin-top: 5vh; height:fit-content;">
       <span title="Sort your To-do-list">
         <button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button>

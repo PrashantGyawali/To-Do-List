@@ -1,10 +1,13 @@
 :root {
     font-family: 'Finlandica', 'Ubuntu', 'Segoe UI', sans-serif;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 body {
     background: linear-gradient(
-        -45deg,
+        -90deg,
         #ee7752,
         #e73c7e,
         #23a6d5,
@@ -15,8 +18,14 @@ body {
         #000000
     );
     background-size: 400% 400%;
-    animation: gradient 40s ease infinite;
+    animation: gradient 50s ease infinite;
     height: 100vh;
+}
+
+#todo-creation-container {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 input[type="text"].completed {
@@ -44,32 +53,29 @@ button.not {
 
 @keyframes rainbow {
     0% {
-        color: red;
+        color: #ffffff;
     }
-    12.55% {
-        color: orange;
+    14.2857% {
+        color: #000000;
     }
-    25% {
-        color: yellow;
+    28.5714% {
+        color: #0fe433;
     }
-    37.5% {
-        color: rgb(2, 216, 109);
+    42.8571% {
+        color: #d523a0;
     }
-    50% {
-        color: blue;
+    57.0428% {
+        color: #d5234d;
     }
-    62.5% {
-        color: rgb(2, 216, 109);
+    71.3285% {
+        color: #d55223;
     }
-    75% {
-        color: yellow;
-    }
-    87.5% {
-        color: orange;
+    85.6142% {
+        color: #3ce7a5;
     }
     100% {
-        color: red;
-    }
+        color: #52c9ee;
+    }   
 }
 
 @keyframes gradient {
