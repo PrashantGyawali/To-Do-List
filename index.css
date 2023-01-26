@@ -1,8 +1,30 @@
+:root {
+    font-family: 'Finlandica', 'Ubuntu', 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(
+        -45deg,
+        #ee7752,
+        #e73c7e,
+        #23a6d5,
+        #23d5ab,
+        #23d558,
+        #e40fc0,
+        #ffffff,
+        #000000
+    );
+    background-size: 400% 400%;
+    animation: gradient 40s ease infinite;
+    height: 100vh;
+}
+
 input[type="text"].completed {
     text-decoration: line-through;
     text-decoration-color: red;
     text-decoration-style: wavy;
 }
+
 .not:hover {
     color: rgba(0, 0, 0, 0.3);
 }
@@ -16,6 +38,7 @@ button.not {
 }
 
 .rainbow {
+    text-align: center;
     animation: rainbow 25s infinite;
 }
 
@@ -47,23 +70,6 @@ button.not {
     100% {
         color: red;
     }
-}
-
-body {
-    background: linear-gradient(
-        -45deg,
-        #ee7752,
-        #e73c7e,
-        #23a6d5,
-        #23d5ab,
-        #23d558,
-        #e40fc0,
-        #ffffff,
-        #000000
-    );
-    background-size: 400% 400%;
-    animation: gradient 40s ease infinite;
-    height: 100vh;
 }
 
 @keyframes gradient {
