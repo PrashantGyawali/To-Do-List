@@ -28,6 +28,7 @@ function submitevent(event)
     event.preventDefault();
 
  //Prevents multiple task from creating when clicking multiple times in short instance
+ document.getElementById('sortplace').innerHTML=`<span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span>`;
   if(cooldown==0)
      {
             let text=document.getElementById("writeplace").value;
@@ -63,9 +64,7 @@ function createhtml(tasks) {
             localStorage.setItem("tasks", x);
 
 
-    var child = document
-        .getElementById("tasks")
-        .lastElementChild;
+    var child = document .getElementById("tasks").lastElementChild;
     while (child) {
         document.getElementById("tasks").removeChild(child);
         child = document.getElementById("tasks").lastElementChild;
@@ -100,7 +99,7 @@ function createhtml(tasks) {
             delBtnSetUp();
 
 
-            if(tasks.length==0){ }
+  
             document.getElementById('Sortbtn').style.visibility= 'visible';}
         )}
     };
@@ -386,6 +385,7 @@ function sortDate_Priority(orderedTasks,datecondn,x,priorityorder)
 
 function sortPriority_Date(orderedTasks,datecondn,x,priorityorder)
     { 
+
         for(let i=0;i<orderedTasks.length-1; i++)
     {
        
@@ -484,6 +484,7 @@ function sortPriority_Date(orderedTasks,datecondn,x,priorityorder)
 
 function sortlist(x)
 {
+
     let orderedTasks=[...tasks];
     let datecondn=document.getElementById('sortdate').value;
     let sortorder=document.getElementById('sortorder').value;
@@ -560,3 +561,4 @@ function getvalue(){
 }
 }
 }
+
