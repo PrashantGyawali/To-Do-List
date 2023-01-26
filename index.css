@@ -1,20 +1,21 @@
-
-input[type='text'].completed{
+input[type="text"].completed {
     text-decoration: line-through;
     text-decoration-color: red;
     text-decoration-style: wavy;
 }
-.not:hover{
-    color:rgba(0,0,0,0.3);
+.not:hover {
+    color: rgba(0, 0, 0, 0.3);
 }
 
-button.not{
-    color:rgba(0,0,0,0);
-} 
+button.not {
+    color: rgba(0, 0, 0, 0);
+}
 
-.not{ text-decoration: none;}
+.not {
+    text-decoration: none;
+}
 
-.rainbow{
+.rainbow {
     animation: rainbow 25s infinite;
 }
 
@@ -35,7 +36,7 @@ button.not{
         color: blue;
     }
     62.5% {
-        color:rgb(2, 216, 109);
+        color: rgb(2, 216, 109);
     }
     75% {
         color: yellow;
@@ -43,27 +44,36 @@ button.not{
     87.5% {
         color: orange;
     }
-    100%{
-        color:red;
+    100% {
+        color: red;
     }
-
 }
 
 body {
-background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558,  #e40fc0,  #ffffff,#000000);
-	background-size: 400% 400%;
-	animation: gradient 40s ease infinite;
-	height: 100vh;
+    background: linear-gradient(
+        -45deg,
+        #ee7752,
+        #e73c7e,
+        #23a6d5,
+        #23d5ab,
+        #23d558,
+        #e40fc0,
+        #ffffff,
+        #000000
+    );
+    background-size: 400% 400%;
+    animation: gradient 40s ease infinite;
+    height: 100vh;
 }
 
 @keyframes gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
