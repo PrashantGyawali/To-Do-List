@@ -14,13 +14,14 @@ if (JSON.parse(localStorage.getItem("tasks")) != null) {
     tasks = JSON.parse(localStorage.getItem("tasks"));
 };
 
+let filteredtasks=[...tasks];
 createhtml(tasks);
 setDefaultdate();
 
 
 
 //Add submit event listener on form and prevent default action
-form1=document.getElementById("write_form")
+let form1=document.getElementById("write_form")
 form1.addEventListener("submit", submitevent);
 
 function submitevent(event)
@@ -61,7 +62,7 @@ function createhtml(tasks) {
   //removes already existing child nodes to update 
 
   let x = JSON.stringify(tasks);
-            localStorage.setItem("tasks", x);
+    localStorage.setItem("tasks", x);
 
 
     var child = document .getElementById("tasks").lastElementChild;
@@ -77,7 +78,7 @@ function createhtml(tasks) {
   
             let y = document.createElement("div");
             y.innerHTML = `
-                  <div style="display: flex; margin:3px; height:42px;" id="${task.name}_maindiv">
+                  <div style="display: flex; margin:3px; height:42px; width:100vw; justify-content:center;" id="${task.name}_maindiv">
 
                 <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
                   <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
@@ -134,13 +135,13 @@ function delBtnSetUp() {
         let fadeDiv = document.getElementById(btnid+"_maindiv");
 
         if (fadeDiv) {
-            fadeDiv.style.transition = 'opacity 1s';
+            fadeDiv.style.transition = 'opacity 0.5s';
             fadeDiv.style.opacity = 0;
         }
         setTimeout(
             function(){ let temp = [];
             tasks=tasks.filter((m)=>{return m.name!=btnid});   
-            createhtml(tasks);},1000);
+            createhtml(tasks);},500);
     }
 }
 

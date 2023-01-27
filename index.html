@@ -10,16 +10,14 @@
 
 
 
-<body style="background-color: #4b4b4b;">
+<body style="background-color: #4b4b4b; display: flex; flex-direction: column;">
     <div >
       <h1 style="text-align: center;" class="rainbow"> To-Do-List</h1>
     </div>
 
-
-    <div>
       <form id="write_form" >
 
-        <div style="display: flex; ">
+        <div style="display: flex;justify-content: center;align-items: stretch;">
               <fieldset style="width:50%">
                  <legend style="color:rgb(138, 255, 249)">Write a to-do:</legend>
                       <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" value="Task" spellcheck="false" required>
@@ -44,16 +42,20 @@
         <fieldset><button id="submit1" type="submit" style="top:10px; height:40px; " >Add Task</button></fieldset>
       </div>
       </form>  
-    </div>
 
 
-<div style="display:flex; max-width:59.5vw; justify-content: space-between; min-height:100px;">
-<h2 style="margin-top: 5vh;">Tasks</h2> 
-<div id="sortplace" style="margin-top: 5vh; height:fit-content;"><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></div>
+
+
+<h2 style="margin-top: 5vh;text-align:center;">Tasks</h2> <br>
+<div style="display: flex; justify-content: space-evenly;">
+<div style="display:flex; justify-content:left;  min-height:100px;">
+<div id='filterdiv'><button style="height: fit-content;margin-top: 5vh; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button></div>
+<div id="sortplace" style="margin-top: 5vh; height:fit-content; "><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></div>
 </div>
-<div>
-<div id="tasks" style="width:100vw; height:20vh;"> </div> 
 </div>
+
+<div id="tasks" style="display:flex; flex-direction: column; justify-self: stretch; height:20vh; align-items: center;"> </div> 
+
 
 
 </body>
