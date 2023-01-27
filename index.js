@@ -58,7 +58,7 @@ function submitevent(event)
      }
      }
 
-function createhtml(tasks) {
+function createhtml(suppliedtasks) {
   //removes already existing child nodes to update 
 
   let x = JSON.stringify(tasks);
@@ -73,8 +73,8 @@ function createhtml(tasks) {
 
     document.getElementById('Sortbtn').style.visibility= 'hidden';
 
-    if (tasks != null) {
-        tasks.forEach((task) => {
+    if (suppliedtasks != null) {
+        suppliedtasks.forEach((task) => {
   
             let y = document.createElement("div");
             y.innerHTML = `
@@ -94,9 +94,7 @@ function createhtml(tasks) {
                   </div>
                 </div>`;
 
-            document
-                .getElementById("tasks")
-                .appendChild(y);
+            document.getElementById("tasks").appendChild(y);
             delBtnSetUp();
 
 
@@ -121,9 +119,7 @@ function createhtml(tasks) {
 function delBtnSetUp() {
     let delBtns = document.getElementsByClassName("delBtn");
 
-    Array
-        .from(delBtns)
-        .forEach((delBtn) => {
+    Array.from(delBtns).forEach((delBtn) => {
             delBtn.addEventListener("click", delfn);
         });
 
@@ -139,7 +135,7 @@ function delBtnSetUp() {
             fadeDiv.style.opacity = 0;
         }
         setTimeout(
-            function(){ let temp = [];
+            function(){
             tasks=tasks.filter((m)=>{return m.name!=btnid});   
             createhtml(tasks);},500);
     }
@@ -460,11 +456,8 @@ function sortPriority_Date(orderedTasks,datecondn,x,priorityorder)
                                  }
                          }
                }
-            }
-        
-       
+            }    
     }            
-    
     }
     };
 
@@ -561,5 +554,50 @@ function getvalue(){
  <button onclick="sortlist('datefocus')" style=" width: 180px;">Sort</button>`;
 }
 }
+}
+
+
+function filterstart()
+{
+    let div=document.getElementById('filterdiv');
+    div.innerHTML=` <span title="Filter By"> <select name="filtermethod" id="filtermethod" style="text-align:center;" onclick="filterstep2()">
+    <option value=" " disabled hidden selected>Select filter method</option>
+    <option value="priority" >Priority</option>
+    <option value="deadline" >Deadline</option>
+    <option value="none" >None</option>
+
+ </select></span>`
+}
+
+function filterstep2()
+{
+
+    let filterstyle=document.getElementById('filtermethod').value;
+    if(filterstyle=='priority')
+    {
+        filterByPriority();
+    }
+}
+
+function filterByPriority()
+{    let div=document.getElementById('filterdiv');
+   div.innerHTML=`    <select name="priorityfilter" id="priorityfilter" onclick="filterByPriorityStep2()">
+    <option value="none" selected disabled hidden>Set Priority</option>
+     <option value="Highest">Highest Priority</option>
+     <option value="High">High Priority</option>
+     <option value="Medium">Medium Priority</option>
+     <option value="Low">Low Priority</option>
+  </select>`
+
+  
+}
+function filterByPriorityStep2()
+{
+    let prioritymthd=document.getElementById('priorityfilter').value;
+    if(prioritymthd!='none')
+    {
+      filteredtasks=tasks.filter((x)=>{return x.priority==`${prioritymthd}`});
+      createhtml(filteredtasks);
+    }
 }
 
