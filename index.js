@@ -71,7 +71,8 @@ function createhtml(suppliedtasks) {
         child = document.getElementById("tasks").lastElementChild;
     }
 
-    document.getElementById('Sortbtn').style.visibility= 'hidden';
+    if(document.getElementById('Sortbtn'))
+    {document.getElementById('Sortbtn').style.visibility= 'hidden';}
 
     if (suppliedtasks != null) {
         suppliedtasks.forEach((task) => {
@@ -81,16 +82,16 @@ function createhtml(suppliedtasks) {
                   <div style="display: flex; margin:3px; height:42px; width:100vw; justify-content:center;" id="${task.name}_maindiv">
 
                 <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
-                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white;" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
+                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white; font-size:15px" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
         
                   <div style="max-width:120px;">
                   <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
                  <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div></span>
                   </div>
         
-                  <div style="display:flex;  background-color: red; width:100px;">
-                    <button id="${task.name}_edit" style="min-width:46%; padding:2px 5px 2px 5px;  text-align:center; box-sizing:border-box;"class="editBtn" onclick="editfn(${task.name})">Edit</button>
-                    <button id="${task.name}_delete" style="max-width:54%;" class="delBtn">Delete</button>
+                  <div style="display:flex;width:92px;">
+                    <button id="${task.name}_edit" style=""class="editBtn" onclick="editfn(${task.name})"></button>
+                    <button id="${task.name}_delete"class="delBtn"><span style="opacity:0">Delete</span></button>
                   </div>
                 </div>`;
 
@@ -98,8 +99,9 @@ function createhtml(suppliedtasks) {
             delBtnSetUp();
 
 
-  
-            document.getElementById('Sortbtn').style.visibility= 'visible';}
+            if(document.getElementById('Sortbtn'))
+            {document.getElementById('Sortbtn').style.visibility= 'visible';}
+            }
         )}
     };
 
@@ -217,7 +219,7 @@ function crossfn(btn) {
                          <option value="Medium">Medium Priority</option>
                          <option value="Low">Low Priority</option>
                       </select>`;
-  let options=Array.from(document.getElementById(btn+'_priorityList').options);
+//   let options=Array.from(document.getElementById(btn+'_priorityList').options);
   
 for (x of tasks) {
     if (x.name == btn) {
@@ -478,8 +480,11 @@ function sortPriority_Date(orderedTasks,datecondn,x,priorityorder)
 
 function sortlist(x)
 {
-
-    let orderedTasks=[...tasks];
+    if(filteredtasks==tasks)
+    {var orderedTasks=[...tasks];}
+    else{
+        var orderedTasks=[...filteredtasks];
+    }
     let datecondn=document.getElementById('sortdate').value;
     let sortorder=document.getElementById('sortorder').value;
     let priorityorder=document.getElementById('sortPriority').value;
@@ -592,12 +597,18 @@ function filterByPriority()
   
 }
 function filterByPriorityStep2()
-{
-    let prioritymthd=document.getElementById('priorityfilter').value;
+{   let prioritymthd=document.getElementById('priorityfilter').value;
     if(prioritymthd!='none')
     {
       filteredtasks=tasks.filter((x)=>{return x.priority==`${prioritymthd}`});
       createhtml(filteredtasks);
+      filterend();
     }
 }
+function filterend()
+{
+    let div=document.getElementById('filterdiv');
+    div.innerHTML=`<button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button>`
+}
+
 

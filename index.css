@@ -1,8 +1,9 @@
 
 input[type='text'].completed{
-    text-decoration: line-through;
-    text-decoration-color: red;
-    text-decoration-style: wavy;
+    text-decoration: line-through 4px;
+    text-decoration-color: rgb(0, 204, 255);
+    text-decoration-style: solid;
+
 }
 .not:hover{
     color:rgba(0,0,0,0.3);
@@ -67,3 +68,57 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
 		background-position: 0% 50%;
 	}
 }
+
+::-webkit-scrollbar {
+    width: max(10px,1.15vw);
+    height: 0px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(0, 0, 0);
+    border-bottom-right-radius: 100vw;
+    border-bottom-left-radius: 100vw;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: rgb(81, 85, 85);
+    border-radius: 100vw;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(60, 91, 194);
+    
+  }
+
+  .delBtn{
+    max-width:46px;
+    background-image: url('delbtn.png'); 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: white;
+    border: 1px solid black;
+  }
+
+  .editBtn{
+     min-width:46px;
+     padding:2px 5px 2px 5px; 
+      background-image: url('editbtn.png'); 
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: contain;
+     background-color: white;
+    text-align:center;
+    box-sizing:border-box;
+    border: 1px solid black;
+  }
+
+  .datebtn{
+  width:27px;
+  height:27px;
+   font-size:30px;
+   margin-top: 1.5px;
+    position:absolute; 
+    transform: translate(-50%,-50%);
+     top:42%; left: 50%;
+    }
