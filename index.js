@@ -184,7 +184,7 @@ function crossfn(btn) {
     {
       textPlace.removeAttribute('readonly');
       textPlace.focus();
-      button.innerText="Save";
+      button.style.backgroundImage='url("savebtn.png")';
       allowdropdown(btn);
       datemodify(btn);
     }
