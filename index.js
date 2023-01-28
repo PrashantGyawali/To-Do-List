@@ -64,13 +64,7 @@ function createhtml(suppliedtasks) {
   let x = JSON.stringify(tasks);
     localStorage.setItem("tasks", x);
 
-
-    var child = document .getElementById("tasks").lastElementChild;
-    while (child) {
-        document.getElementById("tasks").removeChild(child);
-        child = document.getElementById("tasks").lastElementChild;
-    }
-
+    document.getElementById("tasks").innerHTML=''
     if(document.getElementById('Sortbtn'))
     {document.getElementById('Sortbtn').style.visibility= 'hidden';}
 
@@ -138,8 +132,10 @@ function delBtnSetUp() {
         }
         setTimeout(
             function(){
-            tasks=tasks.filter((m)=>{return m.name!=btnid});   
-            createhtml(tasks);},500);
+            tasks=tasks.filter((m)=>{return m.name!=btnid});
+            filteredtasks=filteredtasks.filter((m)=>{return m.name!=btnid});
+            
+           createhtml(filteredtasks);},500);
     }
 }
 
@@ -167,11 +163,9 @@ function crossfn(btn) {
             };
         }
     }
-    createhtml(tasks);
+  createhtml(tasks);
+createhtml(filteredtasks);
 }
-
-
-
 
 
 
@@ -203,7 +197,10 @@ function crossfn(btn) {
         
   }
   createhtml(tasks);
+  filteredtasks=[...tasks];
+  createhtml(filteredtasks);
     }
+
   }
 
 
@@ -465,9 +462,7 @@ function sortPriority_Date(orderedTasks,datecondn,x,priorityorder)
 
 
 
-
-
-    function arrowdir()
+function arrowdir()
     { let btn=document.getElementById('sortorder');
         if(btn.value=='a')
         {
@@ -610,5 +605,23 @@ function filterend()
     let div=document.getElementById('filterdiv');
     div.innerHTML=`<button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button>`
 }
+
+ function deleteAll()
+{ 
+    let x=Array.from(document.getElementsByClassName('delBtn'));
+    let r=confirm("Are you sure?");
+    if (r==true)
+      {
+        x.forEach((y)=>{y.click();});
+      }
+}
+
+
+
+
+
+
+
+
 
 
