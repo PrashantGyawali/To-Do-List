@@ -15,23 +15,21 @@
       <h1 style="text-align: center;" class="rainbow"> To-Do-List</h1>
     </div>
 
+    <div style="display: flex; flex-direction: row; justify-content: center;" >
       <form id="write_form" >
-
-        <div style="display: flex;justify-content: center;align-items: stretch;">
-              <fieldset style="width:50%; height: fit-content;">
+              <fieldset style="width:60vw; height: fit-content; left:-50%; transform: translate(0,-50%);">
                  <legend style="color:rgb(138, 255, 249)">Write a to-do:</legend>
                       <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px;font-size:15px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" value="Task" spellcheck="false" required>
               </fieldset>
 
-              <fieldset style="height: 40px; position: relative;" >
+              <div style="display: flex; width: 60vw; justify-content: center">
+                <fieldset style="height: 40px;" >
                   <legend style="color:greenyellow; justify-items: center; margin: 0px; ">Date:</legend>
                      <span title="Select Deadline">
-                        <span style="opacity: 0;">..</span>
                         <input type="datetime-local" name="datePickerId"  id="datePickerId" class="datebtn" >
-                        <span style="opacity: 0;">..</span></span>
               </fieldset>
 
-              <fieldset style="height:40px">
+              <fieldset style="height:40px;  ">
                   <legend style="color:rgb(255, 14, 66);">Priority:</legend>
                       <select style="height:25px"name="Priority" id="Priority" required>
                         <option value="none" selected disabled hidden >Set Priority</option>
@@ -45,23 +43,25 @@
         <button id="submit1" type="submit" style="margin-top: 7.5px; box-sizing: border-box; height:fit-content; font-size: 41px; " ><span style="visibility: hidden;">.</span><b>+</b><span style="visibility: hidden;">.</span></button>
       </div>
       </form>  
+</div>
 
 
-
-
-<h2 style="margin-top: 5vh;text-align:center;">Tasks</h2> <br>
-<div style="display: flex; ">
-<div style='margin-top: 5vh'><input type="text"><button>&#x1F50D;&#xFE0E;</button></div>
-<div style="display:flex; justify-content: space-evenly; min-height:100px; width:1000px">
-<div id='filterdiv' style="align-items: center;margin-top: 5vh; width:20%"><button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button></div>
-<button style="margin-top: 5vh; height: fit-content; font-size: 20px;" id="deleteAll" onclick="deleteAll()">Delete All</button>
-<div id="sortplace" style="margin-top: 5vh; height:fit-content;width:20%; "><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></div>
+<br>
+<h2 style="margin-top: 20px;text-align:center;">Tasks</h2> <br>
+<div style='margin-top: 1px; display:flex;justify-content: center;'><input type="text"><button>&#x1F50D;&#xFE0E;</button></div>
+<br>
+<div style="display: flex; width:75vw; height:60px">
+        <div style="width:40%"></div>
+        <div id='filterdiv' style="align-items: center;width:20%"><button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button></div>
+        <div style="width: 20%;"><button class="delBtn2" style=" height: fit-content; font-size: 1.3em;" id="deleteAll" onclick="deleteAll()"> <span style="color:rgba(0,0,0,0)">...</span>  All</button></div>
+        <div id="sortplace" style=" height:fit-content;width:20%; "><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></div>
 </div>
 </div>
 
-<div id="tasks" style="display:flex; flex-direction: column; justify-self: stretch; height:20vh; align-items: center;"> </div> 
+<div id="tasks" style="margin-top:25px;display:flex; flex-direction: column; justify-self: stretch; height:20vh; align-items: center;"> </div> 
 
 
 
 </body>
+
 </html>

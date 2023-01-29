@@ -72,22 +72,38 @@ function createhtml(suppliedtasks) {
         suppliedtasks.forEach((task) => {
   
             let y = document.createElement("div");
-            y.innerHTML = `
-                  <div style="display: flex; margin:3px; height:42px; width:100vw; justify-content:center;" id="${task.name}_maindiv">
+            // y.innerHTML = `
+            //       <div style="display: flex; margin:3px; height:42px; width:100vw; justify-content:center;" id="${task.name}_maindiv">
 
-                <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
-                  <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white; font-size:15px" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
+            //     <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
+            //       <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white; font-size:15px" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
         
-                  <div style="max-width:120px;">
+            //       <div style="max-width:120px;">
+            //       <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
+            //      <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div></span>
+            //       </div>
+        
+            //       <div style="display:flex;width:92px;">
+            //         <button id="${task.name}_edit" style=""class="editBtn" onclick="editfn(${task.name})"></button>
+            //         <button id="${task.name}_delete"class="delBtn"><span style="opacity:0">Delete</span></button>
+            //       </div>
+            //     </div>`;
+
+                y.innerHTML=`<div style="display: flex; margin:3px; height:42px; width:75vw; justify-content:center;" id="${task.name}_maindiv">
+
+                <div style="min-width:0%;"><button style=" font-size:1.5em; height:42px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})">&#10004;</button></div>
+                 <div style="width:38%;"><input type="text" style="height:35px; background-color: black; width:98%; overflow: scroll; color:white; font-size:1em" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> </div> 
+              
+                  <div style="min-width:min(15%,200px)">
                   <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
                  <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div></span>
                   </div>
-        
-                  <div style="display:flex;width:92px;">
-                    <button id="${task.name}_edit" style=""class="editBtn" onclick="editfn(${task.name})"></button>
-                    <button id="${task.name}_delete"class="delBtn"><span style="opacity:0">Delete</span></button>
+              
+                  <div style="display:flex;min-width:15%;max-width:20%">
+                    <button id="${task.name}_edit" class="editBtn" onclick="editfn(${task.name})"></button>
+                    <button id="${task.name}_delete" class="delBtn"></button>
                   </div>
-                </div>`;
+                </div>`
 
             document.getElementById("tasks").appendChild(y);
             delBtnSetUp();
@@ -127,15 +143,16 @@ function delBtnSetUp() {
         let fadeDiv = document.getElementById(btnid+"_maindiv");
 
         if (fadeDiv) {
-            fadeDiv.style.transition = 'opacity 0.5s';
+            fadeDiv.style.transition = 'opacity 0.7s';
             fadeDiv.style.opacity = 0;
         }
         setTimeout(
             function(){
             tasks=tasks.filter((m)=>{return m.name!=btnid});
-            filteredtasks=filteredtasks.filter((m)=>{return m.name!=btnid});
-            
-           createhtml(filteredtasks);},500);
+            if(filteredtasks!=tasks)
+            {filteredtasks=filteredtasks.filter((m)=>{return m.name!=btnid});}
+            createhtml(tasks);
+           createhtml(filteredtasks);},700);
     }
 }
 
@@ -197,8 +214,7 @@ createhtml(filteredtasks);
         
   }
   createhtml(tasks);
-  filteredtasks=[...tasks];
-  createhtml(filteredtasks);
+ createhtml(filteredtasks);
     }
 
   }
@@ -215,14 +231,10 @@ createhtml(filteredtasks);
                          <option value="High">High Priority</option>
                          <option value="Medium">Medium Priority</option>
                          <option value="Low">Low Priority</option>
-                      </select>`;
-//   let options=Array.from(document.getElementById(btn+'_priorityList').options);
-  
+                      </select>`;  
 for (x of tasks) {
     if (x.name == btn) {
-        document
-            .getElementById(btn + '_priorityList')
-            .value = x.priority;
+        document.getElementById(btn + '_priorityList').value = x.priority;
     }
 }
          
@@ -234,7 +246,7 @@ function datemodify(btn){
   let button=document.getElementById(btn+"_date");
   button.style.width='94px';
   button.style.height='21px';
-  button.style.fontSize='10px';
+//   button.style.fontSize='10px';
   let dateDiv=document.getElementById(btn+"_dateDiv");
     dateDiv.innerHTML+=
                       `
@@ -576,6 +588,12 @@ function filterstep2()
     if(filterstyle=='priority')
     {
         filterByPriority();
+    }
+    if(filterstyle=='none')
+    {
+        filteredtasks=[...tasks];
+        createhtml(tasks);
+        filterend();
     }
 }
 
