@@ -92,7 +92,7 @@ function createhtml(suppliedtasks) {
                 y.innerHTML=`<div style="display: flex; margin:3px; height:42px; width:75vw; justify-content:center;" id="${task.name}_maindiv">
 
                 <div style="min-width:0%;"><button style=" font-size:1.5em; height:42px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})">&#10004;</button></div>
-                 <div style="width:38%;"><input type="text" style="height:35px; background-color: black; width:98%; overflow: scroll; color:white; font-size:1em" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> </div> 
+                 <div class="tasktxtdiv"><input type="text" style="border-radius:5px;height:35px; background-color: black; width:98%; overflow: scroll; color:white; font-size:1em" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> </div> 
               
                   <div style="min-width:min(15%,200px)">
                   <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
@@ -113,6 +113,7 @@ function createhtml(suppliedtasks) {
             {document.getElementById('Sortbtn').style.visibility= 'visible';}
             }
         )}
+
     };
 
 
@@ -244,9 +245,8 @@ for (x of tasks) {
 
 function datemodify(btn){
   let button=document.getElementById(btn+"_date");
-  button.style.width='94px';
-  button.style.height='21px';
-//   button.style.fontSize='10px';
+  button.style.width='max(9.5vw,94px)';
+button.classList.add('datebtn2');
   let dateDiv=document.getElementById(btn+"_dateDiv");
     dateDiv.innerHTML+=
                       `
@@ -632,6 +632,15 @@ function filterend()
       {
         x.forEach((y)=>{y.click();});
       }
+}
+
+
+function search(){
+    let x=document.getElementById('searchtxt').value;
+    if(x&&x!=''&&x!=" ")
+    {
+
+    }
 }
 
 

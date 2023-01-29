@@ -8,6 +8,12 @@ input[type='text'].completed{
 .not:hover{
     color:rgba(0,0,0,0.3);
 }
+.not:active{
+
+        background-color: rgb(134, 134, 134);
+}
+
+
 
 button.not{
     color:rgba(0,0,0,0);
@@ -123,8 +129,36 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
     box-sizing:border-box;
     border: 1px solid black;
   }
-
+.editBtn:active{
+    background-color: #7e7c7c;
+}
   .datebtn{
-
   height:27px;
     }
+
+.datebtn2{
+  height:27px;
+  font-size: 60%;
+          }
+
+
+.tasktxtdiv
+{
+    width:38%;
+   margin-right:5px;
+}
+
+#search:active{
+    background-color: rgb(59, 57, 57);
+}
+#submit1:active{
+    background-color: rgb(59, 57, 57);
+}
+#datePickerId:hover{
+    background-color: #383838;
+    color: #23a6d5;
+}
+#Priority:hover{
+    background-color: #252525;
+    color: white;
+}
