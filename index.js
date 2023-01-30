@@ -88,19 +88,19 @@ function createhtml(suppliedtasks) {
             //         <button id="${task.name}_delete"class="delBtn"><span style="opacity:0">Delete</span></button>
             //       </div>
             //     </div>`;
-
-                y.innerHTML=`<div style="display: flex; margin:3px; height:42px; width:75vw; justify-content:center;" id="${task.name}_maindiv">
+            
+                y.innerHTML=`<div style="display: flex; height:42px; width:85vw; max-width:900px; justify-content:center;" id="${task.name}_maindiv">
 
                 <div style="min-width:0%;"><button style=" font-size:1.5em; height:42px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})">&#10004;</button></div>
                  <div class="tasktxtdiv"><input type="text" style="border-radius:5px;height:35px; background-color: black; width:98%; overflow: scroll; color:white; font-size:1em" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> </div> 
               
-                  <div style="min-width:min(15%,200px)">
-                  <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
-                 <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div></span>
+                  <div style="min-width:min(19%,21vw)">
+                  <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; padding:0px;"> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%; padding-left:0px; padding-right:0px;" id="${task.name}_priority"></div></span>
+                 <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%; padding:0px;"><input type="button" readonly value="${task.deadline}" style="font-size:0.9em;width:100%; height:50%;" id="${task.name}_date"  > </div></span>
                   </div>
               
-                  <div style="display:flex;min-width:15%;max-width:20%">
-                    <button id="${task.name}_edit" class="editBtn" onclick="editfn(${task.name})"></button>
+                  <div style="display:flex;max-width:15vw;min-width:15%">
+                    <input type="button" id="${task.name}_edit" class="editBtn" onclick="editfn(${task.name})" readonly>
                     <button id="${task.name}_delete" class="delBtn"></button>
                   </div>
                 </div>`
@@ -182,7 +182,8 @@ function crossfn(btn) {
         }
     }
   createhtml(tasks);
-createhtml(filteredtasks);
+if(filteredtasks.length>0)
+{createhtml(filteredtasks);}
 }
 
 
@@ -215,8 +216,8 @@ createhtml(filteredtasks);
         
   }
   createhtml(tasks);
- createhtml(filteredtasks);
-    }
+  if(filteredtasks.length>0||filteredtasks==tasks)
+  {createhtml(filteredtasks);} }
 
   }
 
@@ -227,7 +228,7 @@ createhtml(filteredtasks);
     let priorityDiv=document.getElementById(btn+"_priorityDiv");
     priorityDiv.innerHTML=
                       `
-                      <select name="Priority" id="${btn}_priorityList" style="width:100%; height:21px">
+                      <select name="Priority" id="${btn}_priorityList" style="width:100%; height:21px;" class="dropdown">
                          <option value="Highest">Highest Priority</option>
                          <option value="High">High Priority</option>
                          <option value="Medium">Medium Priority</option>
@@ -245,18 +246,39 @@ for (x of tasks) {
 
 function datemodify(btn){
   let button=document.getElementById(btn+"_date");
-  button.style.width='max(9.5vw,94px)';
-button.classList.add('datebtn2');
+  button.style.maxWidth='max(7vw,75%)';
+  button.classList.add('datebtn2');
   let dateDiv=document.getElementById(btn+"_dateDiv");
-    dateDiv.innerHTML+=
+  dateDiv.style.backgroundColor='#f0f0f0';
+  dateDiv.innerHTML+=
                       `
-                      <input type="datetime-local" name="datePickerId"  id="${btn}_datePickerId" style="width:18px; padding:0px; margin:0px;"  >
+                      <input type="datetime-local" name="datePickerId"  id="${btn}_datePickerId" style="max-width:min(18px,1.3vw);min-width:13px; padding:0px; margin:0px;"  >
                       `;
-                    
+
+    let calendar= document.getElementById(btn + '_datePickerId');
+    calendar.style.backgroundColor='#f0f0f0';
+     function fn()
+    {   console.log('hello');
+    let calendar= document.getElementById(btn + '_datePickerId');
+        calendar.focus();
+    }
+
+    let datetxt=document.getElementById(btn+"_date");
+    let temp1=datetxt.value.slice(2,4);
+    let temp2=datetxt.value.slice(5,7);
+    let temp3=datetxt.value.slice(8,10);
+    let temp4=datetxt.value.slice(11,13);
+    let temp5=datetxt.value.slice(14,16);
+    datetxt.value=temp1+"|"+temp2+"|"+temp3+"|"+temp4+":"+temp5;
+    button.style.fontStretch='50%';
+    datetxt.style.fontSize="11px";
+
+
+dateDiv.addEventListener('click',fn);
   for (x of tasks) {
   if (x.name == btn) {
-  document.getElementById(btn + '_datePickerId').value = x.deadline;}
-
+     calendar.value =x.deadline;
+}
   }
 }
  

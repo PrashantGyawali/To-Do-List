@@ -58,7 +58,7 @@ button.not{
 
 body {
 background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558,  #e40fc0,  #ffffff,#000000);
-	background-size: 400% 400%;
+	background-size: 500% 500%;
 	animation: gradient 40s ease infinite;
 	height: 100vh;
 }
@@ -86,10 +86,10 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
     border-bottom-left-radius: 100vw;
   }
   
-  ::-webkit-scrollbar-thumb {
+  /* ::-webkit-scrollbar-thumb {
     background: rgb(81, 85, 85);
     border-radius: 100vw;
-  }
+  } */
   
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(60, 91, 194);
@@ -104,7 +104,13 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
     background-size: contain;
     background-color: white;
     border: 1px solid black;
-    
+  }
+
+  .delBtn:hover{
+    background-color: rgb(109, 107, 107);
+  }
+  .delBtn:active{
+    background-color: rgb(27, 27, 27);
   }
 
   .delBtn2{
@@ -127,13 +133,21 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
      background-color: white;
     text-align:center;
     box-sizing:border-box;
+    font-weight: bold;
     border: 1px solid black;
   }
-.editBtn:active{
-    background-color: #7e7c7c;
+
+  .editBtn:hover{
+    background-color: #a3a1a1;
 }
+.editBtn:active{
+    background-color: #2b2b2b;
+}
+
   .datebtn{
   height:27px;
+  width:47vw;
+   max-width: 400px;
     }
 
 .datebtn2{
@@ -161,4 +175,9 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
 #Priority:hover{
     background-color: #252525;
     color: white;
+}
+
+.dropdown:hover{
+    background-color: #2c2b2b;
+    color: whitesmoke;
 }
