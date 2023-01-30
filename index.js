@@ -659,9 +659,27 @@ function filterend()
 
 function search(){
     let x=document.getElementById('searchtxt').value;
+    document.getElementById('searchtxt').value="";
     if(x&&x!=''&&x!=" ")
     {
+        let searches=x.split(' ');
+        let testdata=[...tasks];
 
+        filteredtasks=[];
+        console.log("huhu");
+        testdata.forEach((x)=>{searching(x)});
+
+        function searching(x)
+        {
+            searches.forEach(
+            (y)=>{let re = new RegExp(y, 'i');
+            let i=(x.content).match(re);
+            console.log(i);
+            if(i)
+            {   filteredtasks.push(x)}
+            });
+        }
+        createhtml(filteredtasks);
     }
 }
 

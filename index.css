@@ -86,18 +86,14 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
     border-bottom-left-radius: 100vw;
   }
   
-  /* ::-webkit-scrollbar-thumb {
-    background: rgb(81, 85, 85);
-    border-radius: 100vw;
-  } */
-  
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(60, 91, 194);
     
   }
 
   .delBtn{
-    min-width:50%;
+    min-width:30px;
+    width:50%;
     background-image: url('delbtn.png'); 
     background-position: center;
     background-repeat: no-repeat;
@@ -124,7 +120,8 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
   }
 
   .editBtn{
-     min-width:50%;
+    min-width:30px;
+    width:50%;
      padding:2px 5px 2px 5px; 
       background-image: url('editbtn.png'); 
      background-position: center;
@@ -147,6 +144,7 @@ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab,  #23d558
   .datebtn{
   height:27px;
   width:47vw;
+  min-width:110px;
    max-width: 400px;
     }
 
