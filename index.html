@@ -19,7 +19,7 @@
       <form id="write_form" >
               <fieldset style="width:calc(60vw+3px); min-width: 250px; height: fit-content; left:-50%; transform: translate(0%,-50%);">
                  <legend style="color:rgb(138, 255, 249)">Write a to-do:</legend>
-                      <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px;font-size:15px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?" value="Task" spellcheck="false" required>
+                      <input id="writeplace" name="writeplace" style="background-color: #2b2b2b; border-radius: 5px;font-size:15px; border: #2b2b2b 3px solid; color:aliceblue; width:100% " type="text" placeholder="What do you have planned?"value="" spellcheck="false" required>
               </fieldset>
 
               <div style="display: flex; justify-content: center; ">
@@ -52,6 +52,7 @@
   <div class="tools">
     <div style=' display:flex; height:30px; margin-top:7px; min-width:fit-content ;' class="searchdiv"><input type="text" id="searchtxt" style=" width: 25vw;  min-width:80px" onclick="searchclick()"><button id="search" onclick="search()" >&#x1F50D;&#xFE0E;</button></div>
    <div class="moretools">
+    <a><button class="showall" onclick="createhtml(tasks);searchclick();" style="height:29px;font-size: 20px;">All</button></a>
    <a id="filterdiv"><button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button></a>
     <a><button class="delBtn2" style=" height: fit-content; font-size: 1.3em; padding-left: 25px;" id="deleteAll" onclick="deleteAll()">All</button></a>
     <a id="sortplace" style="display:flex; justify-content: center;"><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></a></div>

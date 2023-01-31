@@ -16,7 +16,7 @@ if (JSON.parse(localStorage.getItem("tasks")) != null) {
 
 let filteredtasks=[...tasks];
 createhtml(tasks);
-setDefaultdate();
+setDefaultdate('datePickerId');
 
 
 
@@ -69,26 +69,8 @@ function createhtml(suppliedtasks) {
     {document.getElementById('Sortbtn').style.visibility= 'hidden';}
 
     if (suppliedtasks != null) {
-        suppliedtasks.forEach((task) => {
-  
+        suppliedtasks.forEach((task) => { 
             let y = document.createElement("div");
-            // y.innerHTML = `
-            //       <div style="display: flex; margin:3px; height:42px; width:100vw; justify-content:center;" id="${task.name}_maindiv">
-
-            //     <button style="width: auto; font-size:150%; padding:0px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})"><span style="color:rgba(0,0,0,0)">.</span>&#10004;<span style="color:rgba(0,0,0,0)">.</span></button>
-            //       <input type="text" style=" background-color: black; min-width:40%; overflow: scroll; color:white; font-size:15px" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> 
-        
-            //       <div style="max-width:120px;">
-            //       <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; "> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%" id="${task.name}_priority"></div></span>
-            //      <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%;"><input type="button" readonly value="${task.deadline}" style="width:100%; height:50%;" id="${task.name}_date"  > </div></span>
-            //       </div>
-        
-            //       <div style="display:flex;width:92px;">
-            //         <button id="${task.name}_edit" style=""class="editBtn" onclick="editfn(${task.name})"></button>
-            //         <button id="${task.name}_delete"class="delBtn"><span style="opacity:0">Delete</span></button>
-            //       </div>
-            //     </div>`;
-            
                 y.innerHTML=`<div style="display: flex; height:42px; width:85vw; max-width:900px; justify-content:center;" id="${task.name}_maindiv">
 
                 <div style="min-width:0%;"><button style=" font-size:1.5em; height:42px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})">&#10004;</button></div>
@@ -313,13 +295,15 @@ function check_localStorage()
 
 
 //Sets a default date as tomorrow
-function setDefaultdate() { document.getElementById("datePickerId").removeAttribute("min");
-    let tomorrow = (new Date(new Date().setDate(new Date().getDate() + 1))).toISOString();
-    tomorrow=tomorrow.slice(0,16);
- 
-   // just giving default date as tomorrow- ignore this monstrocity
-    let x=tomorrow.slice(0,11).concat( ((new Date()).toTimeString()).slice(0,5))
-    document.getElementById("datePickerId").value=x;
+function setDefaultdate(y) { 
+document.getElementById(y).removeAttribute("min");
+
+// just giving default date as tomorrow-
+const msSinceEpoch = (new Date()).getTime();
+let tomorrow = (new Date(msSinceEpoch + 24 * 60 * 60 * 1000)).toLocaleString("sv-SE");
+let now=(new Date()).toLocaleString("sv-SE");
+
+document.getElementById(y).value=tomorrow;
 }
 
 
@@ -536,7 +520,7 @@ function sortbtn()
     let priorityDiv=document.getElementById('sortplace');
     priorityDiv.innerHTML=
                       `
-                      <span title="Select on what basis you want to sort your to-do-list"> <select name="sortfocus" id="sortfocus" style="height:21px" onclick='getvalue()'>
+                      <span title="Select on what basis you want to sort your to-do-list"> <select name="sortfocus" id="sortfocus" style="font-size:17px; height:29px" onclick='getvalue()'>
                          <option value="none" selected disabled hidden>Sorting Focus</option> 
                          <option value="priorityfocus">Priority Focused</option>
                          <option value="datefocus">Date Focused</option>
@@ -600,7 +584,7 @@ if(document.getElementById('sortfocus').value=='nope'){
 function filterstart()
 {
     let div=document.getElementById('filterdiv');
-    div.innerHTML=` <span title="Filter By"> <select name="filtermethod" id="filtermethod" style="text-align:center; justify-self:left; font-size:15px" onclick="filterstep2()">
+    div.innerHTML=` <span title="Filter By"> <select name="filtermethod" id="filtermethod" style="text-align:center; justify-self:left; font-size:19px; height:29px" onclick="filterstep2()">
     <option value=" " disabled hidden selected>Filter method</option>
     <option value="priority" >Priority</option>
     <option value="deadline" >Deadline</option>
@@ -625,29 +609,52 @@ function filterstep2()
         createhtml(tasks);
         filterend();
     }
+    if(filterstyle=='deadline')
+    {
+        filterByDate();
+    }
 }
 
 function filterByPriority()
 {    let div=document.getElementById('filterdiv');
-   div.innerHTML=`    <select name="priorityfilter" id="priorityfilter" onclick="filterByPriorityStep2()"  style="justify-self:left">
+   div.innerHTML=`    <select name="priorityfilter" id="priorityfilter" onclick="filterByPriorityStep2()"  style="justify-self:left;height: fit-content; font-size: 20px;">
     <option value="none" selected disabled hidden>Set Priority</option>
      <option value="Highest">Highest Priority</option>
      <option value="High">High Priority</option>
      <option value="Medium">Medium Priority</option>
      <option value="Low">Low Priority</option>
-  </select>`
-
-  
+     <option value="All">All</option>
+  </select>`  
 }
 function filterByPriorityStep2()
 {   let prioritymthd=document.getElementById('priorityfilter').value;
-    if(prioritymthd!='none')
+    let date;
+    if(prioritymthd!='none'&&prioritymthd!='All')
     {
       filteredtasks=tasks.filter((x)=>{return x.priority==`${prioritymthd}`});
       createhtml(filteredtasks);
       filterend();
     }
+    if(prioritymthd=='All')
+    {
+        createhtml(tasks);
+        searchclick();
+    }
 }
+
+function filterByDate()
+{
+    let div=document.getElementById('filterdiv');
+    div.innerHTML=
+    `<div>
+    <div><button style="height:29px; float:left;width:50%">Start</button><button style="height:29px; float:right; width:50%" onclick="searchclick()">Cancel</button><br><input type="datetime-local" name="startdate"  id="startdate" class="datef" ></div>
+    <div><button style="height:29px; float:left; width:50%">End</button><button style="height:29px;float:right; width:50%">Filter</button><br><input type="datetime-local" name="enddate"  id="enddate" class="datef" ></div> 
+    </div>
+    `  ;
+    document.getElementById('startdate').value=(new Date).toLocaleString("sv-SE")
+    setDefaultdate('enddate');
+}
+
 function filterend()
 {
     let div=document.getElementById('filterdiv');
@@ -696,6 +703,7 @@ let filterdiv=document.getElementById("filterdiv");
 filterdiv.innerHTML=`<button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button>`;
 let sortdiv=document.getElementById("sortplace");
  sortdiv.innerHTML=`<span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></a>`;
+ createhtml(tasks);
 }
 
 
