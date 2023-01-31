@@ -92,11 +92,11 @@ function createhtml(suppliedtasks) {
                 y.innerHTML=`<div style="display: flex; height:42px; width:85vw; max-width:900px; justify-content:center;" id="${task.name}_maindiv">
 
                 <div style="min-width:0%;"><button style=" font-size:1.5em; height:42px;"  class="crossBtn ${task.completed}" id="${task.name}_cross" onclick="crossfn(${task.name})">&#10004;</button></div>
-                 <div class="tasktxtdiv"><input type="text" style="border-radius:5px;height:35px; background-color: black; width:98%; overflow: scroll; color:white; font-size:1em" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> </div> 
+                 <div class="tasktxtdiv"><input type="text" style=" margin-top:3px;border-radius:5px;height:35px; background-color: black; width:98%; overflow: scroll; color:white; font-size:1em" value="${task.content}" readonly class="${task.completed}" id="${task.name}" spellcheck="false"> </div> 
               
                   <div style="min-width:min(19%,21vw)">
                   <span title="Priority"><div  id="${task.name}_priorityDiv" style="width:100%; padding:0px;"> <input type="button" readonly value="${task.priority}" style="width:100%; height:50%; padding-left:0px; padding-right:0px;" id="${task.name}_priority"></div></span>
-                 <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%; padding:0px;"><input type="button" readonly value="${task.deadline}" style="font-size:0.9em;width:100%; height:50%;" id="${task.name}_date"  > </div></span>
+                 <span title="Deadline"><div  id="${task.name}_dateDiv" style="width:100%; padding:0px;"><input type="button" readonly value="${task.deadline}" style="font-size:0.75em;width:100%; height:50%; " id="${task.name}_date"  > </div></span>
                   </div>
               
                   <div style="display:flex;max-width:15vw;min-width:15%">
@@ -197,7 +197,7 @@ if(filteredtasks.length>0)
     {
       textPlace.removeAttribute('readonly');
       textPlace.focus();
-      button.style.backgroundImage='url("savebtn.png")';
+      button.style.backgroundImage='url("./icons/savebtn.png")';
       allowdropdown(btn);
       datemodify(btn);
     }
@@ -517,7 +517,7 @@ function sortlist(x)
     let datecondn=document.getElementById('sortdate').value;
     let sortorder=document.getElementById('sortorder').value;
     let priorityorder=document.getElementById('sortPriority').value;
-
+  
 
 
     if(x=='datefocus')
@@ -537,13 +537,15 @@ function sortbtn()
     priorityDiv.innerHTML=
                       `
                       <span title="Select on what basis you want to sort your to-do-list"> <select name="sortfocus" id="sortfocus" style="height:21px" onclick='getvalue()'>
-                         <option value="none" selected disabled hidden>Select Sorting Focus</option> 
+                         <option value="none" selected disabled hidden>Sorting Focus</option> 
                          <option value="priorityfocus">Priority Focused</option>
                          <option value="datefocus">Date Focused</option>
+                         <option value="nope">None</option>
                       </select>
                       </span>
                       `;
-    
+                      let filterdiv=document.getElementById("filterdiv");
+                      filterdiv.innerHTML=`<button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button>`;
 }
 
 
@@ -556,25 +558,25 @@ function getvalue(){
         if(x=='priorityfocus')
          {priorityDiv.innerHTML= `
          <span title="First Sorted on basis of Priority">
-         <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;"></span>
+         <div id="sortdivs" style="display: flex; flex-direction: column; width: 100%; max-width:166px"></span>
         <select name="sortPriority" id="sortPriority" style="text-align:center;" >
           <option value="d" selected>Priority: High to Low</option>
           <option value="a">Priority: Low to High</option>
        </select>
        
-       <div id="datesortdiv" style="display: flex; width: 180px;">
+       <div id="datesortdiv" style="display: flex; width: 100%; justify-content:space-between">
        <span title="If Priority same then sorted according to date"><select name="sortdate" id="sortdate" style="text-align:center;">
          <option value="dateAdded" selected >Date added</option>
          <option value="deadline">Deadline</option>
       </select></span>
-      <span title="For same priority Date is arranged in ascending or descending?"><button id="sortorder" style=" font-size:14px; padding:0px 5px 0px 5px; width: 87px;" value="d" onclick="arrowdir()">Decreasing</button></div></span>
-     <span title="Finally sort"> <button onclick="sortlist('priorityfocus')" style=" width: 180px;">Sort</button> </span>`;
+      <span title="For same priority Date is arranged in ascending or descending?"><button id="sortorder" style=" font-size:12px; padding:0px;" value="d" onclick="arrowdir()">Decreasing</button></div></span>
+     <span title="Finally sort"> <button onclick="sortlist('priorityfocus')" style=" width: 100%;">Sort</button> </span>`;
     }
 
     if(x=='datefocus')
     {priorityDiv.innerHTML= `
     
-    <div id="sortdivs" style="display: flex; flex-direction: column; width: 180px;">
+    <div id="sortdivs" style="display: flex; flex-direction: column; min-width: 180px; justify-content:center;">
     <div id="datesortdiv" style="display: flex; width: 180px;">
    <span title="What date you want to sort according to?"> <select name="sortdate" id="sortdate" style="text-align:center;">
       <option value="dateAdded"  >Date added</option>
@@ -588,19 +590,25 @@ function getvalue(){
  <button onclick="sortlist('datefocus')" style=" width: 180px;">Sort</button>`;
 }
 }
+if(document.getElementById('sortfocus').value=='nope'){
+    let sortdiv=document.getElementById("sortplace");
+    sortdiv.innerHTML=`<span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></a>`; 
+}
 }
 
 
 function filterstart()
 {
     let div=document.getElementById('filterdiv');
-    div.innerHTML=` <span title="Filter By"> <select name="filtermethod" id="filtermethod" style="text-align:center;" onclick="filterstep2()">
-    <option value=" " disabled hidden selected>Select filter method</option>
+    div.innerHTML=` <span title="Filter By"> <select name="filtermethod" id="filtermethod" style="text-align:center; justify-self:left; font-size:15px" onclick="filterstep2()">
+    <option value=" " disabled hidden selected>Filter method</option>
     <option value="priority" >Priority</option>
     <option value="deadline" >Deadline</option>
     <option value="none" >None</option>
-
  </select></span>`
+
+ let sortdiv=document.getElementById("sortplace");
+ sortdiv.innerHTML=`<span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></a>`
 }
 
 function filterstep2()
@@ -621,7 +629,7 @@ function filterstep2()
 
 function filterByPriority()
 {    let div=document.getElementById('filterdiv');
-   div.innerHTML=`    <select name="priorityfilter" id="priorityfilter" onclick="filterByPriorityStep2()">
+   div.innerHTML=`    <select name="priorityfilter" id="priorityfilter" onclick="filterByPriorityStep2()"  style="justify-self:left">
     <option value="none" selected disabled hidden>Set Priority</option>
      <option value="Highest">Highest Priority</option>
      <option value="High">High Priority</option>
@@ -683,8 +691,12 @@ function search(){
     }
 }
 
-
-
+function searchclick(){
+let filterdiv=document.getElementById("filterdiv");
+filterdiv.innerHTML=`<button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button>`;
+let sortdiv=document.getElementById("sortplace");
+ sortdiv.innerHTML=`<span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></a>`;
+}
 
 
 
