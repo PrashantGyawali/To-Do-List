@@ -53,7 +53,8 @@ function submitevent(event)
            createhtml(tasks);
             //this is the thing that cause cooldown
             cooldown=1;
-            setTimeout(()=>{cooldown=0;},500)
+            setTimeout(()=>{cooldown=0;},500);
+            filteredtasks=[...tasks];
 
      }
      }
@@ -273,9 +274,11 @@ dateDiv.addEventListener('click',fn);
 
 
 //checks if date is valid i.e cannot create new task thats scheduled for yesterday
-function Datecheck(datePickerId) { document.getElementById(datePickerId).removeAttribute("min");
-    let x=new Date().toISOString();
-    document.getElementById(datePickerId).setAttribute("min", x.slice(0,16));;
+function Datecheck() { document.getElementById('datePickerId').removeAttribute("min");
+    let x=((new Date().toISOString()).slice(0,10)).concat("T",(new Date().toTimeString()).slice(0,5),":00");
+    console.log('hmm');
+    document.getElementById('datePickerId').setAttribute("min", x);
+    console.log('hello', document.getElementById('datePickerId').min);
 }
 
 
@@ -300,9 +303,7 @@ document.getElementById(y).removeAttribute("min");
 
 // just giving default date as tomorrow-
 const msSinceEpoch = (new Date()).getTime();
-let tomorrow = (new Date(msSinceEpoch + 24 * 60 * 60 * 1000)).toLocaleString("sv-SE");
-let now=(new Date()).toLocaleString("sv-SE");
-
+let tomorrow = ((new Date(msSinceEpoch + 24.5 * 60 * 60 * 1000)).toLocaleString("sv-SE")).slice(0,16);
 document.getElementById(y).value=tomorrow;
 }
 
@@ -646,12 +647,12 @@ function filterByDate()
 {
     let div=document.getElementById('filterdiv');
     div.innerHTML=
-    `<div>
-    <div><button style="height:29px; float:left;width:50%">Start</button><button style="height:29px; float:right; width:50%" onclick="searchclick()">Cancel</button><br><input type="datetime-local" name="startdate"  id="startdate" class="datef" ></div>
-    <div><button style="height:29px; float:left; width:50%">End</button><button style="height:29px;float:right; width:50%">Filter</button><br><input type="datetime-local" name="enddate"  id="enddate" class="datef" ></div> 
+    `<div style="display:flex; justify-content:center; flex-direction:column" >
+    <div style="max-width:400px"><button class="filterdatebtn">Start</button><button style="height:29px; float:right; width:50%" onclick="searchclick()">Cancel</button><br><input type="datetime-local" name="startdate"  id="startdate" class="datef" ></div>
+    <div style="max-width:400px"><button class="filterdatebtn">End</button><button style="height:29px;float:right; width:50%">Filter</button><br><input type="datetime-local" name="enddate"  id="enddate" class="datef" ></div> 
     </div>
     `  ;
-    document.getElementById('startdate').value=(new Date).toLocaleString("sv-SE")
+    document.getElementById('startdate').value=((new Date).toLocaleString("sv-SE")).slice(0,16);
     setDefaultdate('enddate');
 }
 
