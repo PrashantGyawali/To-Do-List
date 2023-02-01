@@ -237,7 +237,7 @@ function datemodify(btn){
   dateDiv.style.backgroundColor='#f0f0f0';
   dateDiv.innerHTML=
                       `
-                      <input type="datetime-local" name="datePickerId"  id="${btn}_datePickerId" style="width:100%;padding:0px; margin:0px; font-size:0.85em">
+                      <input type="datetime-local" name="datePickerId"  id="${btn}_datePickerId" style="width:100%;padding:0px; margin:0px; font-size:0.85em" class="dateoftask">
                       `;
 
     let calendar= document.getElementById(btn + '_datePickerId');
