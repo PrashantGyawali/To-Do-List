@@ -27,7 +27,7 @@
                 <fieldset style="height:60px;padding-left:0px;padding-right:0px" >
                   <legend style="color:greenyellow; justify-items: center; margin: 0px; ">Date:</legend>
                      <span title="Select Deadline">
-                        <input type="datetime-local" name="datePickerId"  id="datePickerId" class="datebtn" onclick="Datecheck()" >
+                        <input type="datetime-local" name="datePickerId"  id="datePickerId" class="datebtn" onclick="Datecheck('datePickerId')" >
               </fieldset>
 
               <fieldset style="height:60px; padding-left:0px;padding-right:0px;margin-bottom: 0px;">
@@ -53,10 +53,10 @@
   <div class="tools">
     <div style=' display:flex; height:30px; margin-top:7px; min-width:fit-content ;' class="searchdiv"><input type="text" id="searchtxt" style=" width: 25vw;  min-width:80px" onclick="searchclick()"><button id="search" onclick="search()" >&#x1F50D;&#xFE0E;</button></div>
    <div class="moretools">
-    <a><button class="showall" onclick="createhtml(tasks);searchclick();" style="height:29px;font-size: 20px;">All</button></a>
-   <a id="filterdiv"><button style="height: fit-content; font-size: 20px;" id="filterbtn" onclick="filterstart()">Filter</button></a>
+    <span title="Reload All"><a><button class="showall" onclick="createhtml(tasks);searchclick();" style="height:29px;font-size: 1.3em; padding-top:0px;"><span style="color:rgb(0, 195, 255); font-weight: 800;">&#8635;</span>All</button></a></span>
+   <a id="filterdiv"><button style="height: fit-content; font-size:1.3em;" id="filterbtn" onclick="filterstart()">Filter</button></a>
     <a><button class="delBtn2" style=" height: fit-content; font-size: 1.3em; padding-left: 25px;" id="deleteAll" onclick="deleteAll()">All</button></a>
-    <a id="sortplace" style="display:flex; justify-content: center;"><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 20px;" onclick="sortbtn()">Sort</button> </span></a></div>
+    <a id="sortplace" style="display:flex; justify-content: center;"><span title="Sort your To-do-list"><button id="Sortbtn" style="font-size: 1.3em;" onclick="sortbtn()">Sort</button> </span></a></div>
   </div>
   </div>
 

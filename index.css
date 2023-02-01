@@ -292,7 +292,7 @@ text-align: center;
   }
 
 
-  @media screen and (max-width: 670px) {
+  @media screen and (max-width: 700px) {
 
     .moretools{
         display: inline;
@@ -329,7 +329,7 @@ text-align: center;
     @media screen and (max-width: 240px) {
 
         .datef{
-            /* font-size: 6px; */
+            font-size: 7.5px;
         }
        }
     
@@ -341,4 +341,18 @@ text-align: center;
     float:left;
     width:50%;
     max-width: 200px;
+}
+
+.toolselecttxt{
+    font-size: 1.3em;
+     text-align:center;
+     justify-self:left;
+     height:29.5px;
+}
+.editdiv1{
+
+    width:min(19%,21vw);
+}
+.editdiv2{
+    min-width:min(19%,21vw);
 }
