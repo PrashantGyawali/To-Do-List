@@ -1,5 +1,5 @@
 # To-Do-List
-My horrible failed attempt at making a simple todo list in vanilla js
+My not bad attempt at making a simple todo list in vanilla js
 
 Github-pages: https://prashantgyawali.github.io/To-Do-List/
 
